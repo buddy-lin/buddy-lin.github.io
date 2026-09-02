@@ -101,6 +101,17 @@
       scroll-margin-top: 64px;
     }
 
+    /* 置顶导航当前板块高亮 */
+    .nav-link {
+      border-bottom: 2px solid transparent;
+    }
+    .nav-link.active {
+      color: #D97757;
+      background-color: #FAF2EE;
+      border-bottom-color: #D97757;
+      font-weight: 700;
+    }
+
     /* 履历排版清晰化：提高行距与段落间距 */
     .timeline-item .space-y-2 {
       row-gap: 1.25rem;
@@ -210,11 +221,11 @@
         </div>
       </div>
       <nav class="flex items-center gap-0.5 sm:gap-1 overflow-x-auto whitespace-nowrap text-xs sm:text-sm">
-        <a href="#nonelinear" class="px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">非线智能</a>
-        <a href="#jd" class="px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">京东</a>
-        <a href="#vipshop" class="px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">唯品会</a>
-        <a href="#outlet" class="px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">奥特莱斯</a>
-        <a href="#qiyoudi" class="px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">祈优缔科技</a>
+        <a href="#nonelinear" data-target="nonelinear" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">非线智能</a>
+        <a href="#jd" data-target="jd" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">京东</a>
+        <a href="#vipshop" data-target="vipshop" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">唯品会</a>
+        <a href="#outlet" data-target="outlet" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">奥特莱斯</a>
+        <a href="#qiyoudi" data-target="qiyoudi" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">祈优缔科技</a>
       </nav>
     </div>
   </header>
@@ -546,22 +557,18 @@
           </div>
 
           <!-- 核心业绩数字看板 -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
             <div class="bg-white p-2.5 sm:p-3 rounded-lg border border-claude-border text-center">
               <div class="text-lg sm:text-2xl font-bold font-serif text-claude-terracotta">2.6万</div>
               <div class="text-[10px] sm:text-xs text-claude-textSecondary mt-0.5">单篇爆文阅读</div>
             </div>
             <div class="bg-white p-2.5 sm:p-3 rounded-lg border border-claude-border text-center">
-              <div class="text-lg sm:text-2xl font-bold font-serif text-claude-terracotta">10万+</div>
+              <div class="text-lg sm:text-2xl font-bold font-serif text-claude-terracotta">GMV 10万+</div>
               <div class="text-[10px] sm:text-xs text-claude-textSecondary mt-0.5">单篇转化大客</div>
             </div>
             <div class="bg-white p-2.5 sm:p-3 rounded-lg border border-claude-border text-center">
               <div class="text-lg sm:text-2xl font-bold font-serif text-claude-terracotta">1.1万+</div>
               <div class="text-[10px] sm:text-xs text-claude-textSecondary mt-0.5">日均矩阵播放</div>
-            </div>
-            <div class="bg-white p-2.5 sm:p-3 rounded-lg border border-claude-border text-center">
-              <div class="text-lg sm:text-2xl font-bold font-serif text-claude-terracotta">5000+</div>
-              <div class="text-[10px] sm:text-xs text-claude-textSecondary mt-0.5">双号总粉丝</div>
             </div>
           </div>
 
@@ -572,8 +579,8 @@
               <div class="text-xs font-bold text-claude-text leading-snug">Deepseek涨价后有更高性价比的替代吗？</div>
               <div class="text-[10px] text-claude-textMuted mt-1">公众号「nonlinear」标杆之作 · 点击阅读</div>
             </a>
-            <div class="proof-thumb cursor-pointer p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracotta transition-all" onclick="openLightbox('./assets/视频号_矩阵号1.png', '企业视频号后台：非线智能API企业应用')">
-              <div class="text-[10px] font-mono font-bold text-claude-terracotta mb-0.5">视频号矩阵 (点击看后台)</div>
+            <div class="proof-thumb cursor-pointer p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracotta transition-all" onclick="openLightboxStack('./assets/视频号_矩阵号1.png', './assets/视频号_矩阵号2.png', '视频号矩阵 · 双号后台', '主号：非线智能API企业应用', '行业号：矩阵后台数据')">
+              <div class="text-[10px] font-mono font-bold text-claude-terracotta mb-0.5">视频号矩阵 (点击看双号后台)</div>
               <div class="flex items-center justify-between gap-2">
                 <span class="text-xs font-bold text-claude-text truncate">非线智能API双号矩阵</span>
                 <span class="text-[10px] text-claude-textSecondary shrink-0">日均播放 1.1万+</span>
@@ -1021,6 +1028,28 @@
     </div>
   </div>
 
+  <!-- 双号后台截图上下并排弹窗 (视频号矩阵) -->
+  <div id="lightbox-stack" class="fixed inset-0 bg-black/85 z-50 backdrop-blur-md hidden flex-col items-center justify-center p-2 sm:p-6 no-print" onclick="closeLightboxStack(event)">
+    <div class="relative max-w-5xl max-h-[95vh] w-full flex flex-col items-center" onclick="event.stopPropagation()">
+      <div class="w-full flex items-center justify-between mb-2 px-1">
+        <div class="text-white text-xs sm:text-sm font-medium px-2.5 py-1 rounded-full bg-black/60 border border-white/15 truncate max-w-[220px] sm:max-w-md" id="lightbox-stack-title">视频号矩阵 · 双号后台</div>
+        <button onclick="closeLightboxStack()" class="text-white/80 hover:text-white flex items-center gap-1 text-xs bg-black/60 hover:bg-black/80 px-2.5 py-1 rounded-full border border-white/20 transition-all shrink-0">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i><span>关闭</span>
+        </button>
+      </div>
+      <div class="w-full overflow-y-auto max-h-[82vh] flex flex-col items-center gap-3 rounded-xl bg-black/50 border border-white/10 shadow-2xl p-3">
+        <figure class="w-full text-center">
+          <img id="lightbox-stack-img1" src="" alt="主号后台截图" class="w-full h-auto object-contain rounded-lg bg-white/5">
+          <figcaption id="lightbox-stack-cap1" class="text-white/80 text-xs mt-1.5"></figcaption>
+        </figure>
+        <figure class="w-full text-center">
+          <img id="lightbox-stack-img2" src="" alt="行业号后台截图" class="w-full h-auto object-contain rounded-lg bg-white/5">
+          <figcaption id="lightbox-stack-cap2" class="text-white/80 text-xs mt-1.5"></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
   <!-- 提示条 (Toast) -->
   <div id="toast" class="fixed bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 bg-claude-text text-claude-bg text-xs font-medium px-3.5 py-2 rounded-xl shadow-xl opacity-0 pointer-events-none transition-all duration-200 z-50 flex items-center gap-1.5 border border-claude-border no-print whitespace-nowrap">
     <i data-lucide="check" class="w-3.5 h-3.5 text-claude-terracotta"></i>
@@ -1229,6 +1258,34 @@
       modal.classList.remove('flex');
       document.body.style.overflow = '';
       resetLightboxZoom();
+    }
+
+    // 双号后台截图上下并排弹窗
+    function openLightboxStack(img1Src, img2Src, title, cap1, cap2) {
+      const modal = document.getElementById('lightbox-stack');
+      const img1 = document.getElementById('lightbox-stack-img1');
+      const img2 = document.getElementById('lightbox-stack-img2');
+      const titleEl = document.getElementById('lightbox-stack-title');
+      const cap1El = document.getElementById('lightbox-stack-cap1');
+      const cap2El = document.getElementById('lightbox-stack-cap2');
+
+      img1.src = img1Src;
+      img2.src = img2Src;
+      titleEl.innerText = title || '视频号矩阵 · 双号后台';
+      cap1El.innerText = cap1 || '';
+      cap2El.innerText = cap2 || '';
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeLightboxStack() {
+      const modal = document.getElementById('lightbox-stack');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
     }
 
     // ==========================================
@@ -1463,12 +1520,44 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeLightbox();
+        closeLightboxStack();
       } else if (e.key === 'ArrowLeft') {
         prevLightboxGroup();
       } else if (e.key === 'ArrowRight') {
         nextLightboxGroup();
       }
     });
+
+    // ---- 置顶导航：滚动到对应板块时高亮激活 ----
+    (function setupNavScrollSpy() {
+      const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+      const anchorIds = ['nonelinear', 'jd', 'vipshop', 'outlet', 'qiyoudi'];
+      // 按页面实际 DOM 顺序排序，滚动判断才能从顶部依次推进
+      const sections = anchorIds
+        .map(id => document.getElementById(id))
+        .filter(x => x)
+        .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+
+      function onScroll() {
+        const headerOffset = 72; // sticky 高度 + 少量缓冲
+        let currentId = null;
+        for (const sec of sections) {
+          if (sec.getBoundingClientRect().top <= headerOffset) {
+            currentId = sec.id;
+          }
+        }
+        // 若页面滚动到底部，强制高亮 DOM 顺序最后一个板块
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 4) {
+          currentId = sections[sections.length - 1].id;
+        }
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.target === currentId);
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
   </script>
 </body>
 </html>
