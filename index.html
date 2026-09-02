@@ -98,18 +98,17 @@
 
     /* 锚点跳转补偿 sticky 导航栏高度 */
     #nonelinear, #jd, #vipshop, #outlet, #qiyoudi {
-      scroll-margin-top: 64px;
+      scroll-margin-top: 16px;
     }
 
-    /* 置顶导航当前板块高亮 */
+    /* 机构导航当前板块高亮（彩色胶囊上的选中态） */
     .nav-link {
-      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
     }
     .nav-link.active {
-      color: #D97757;
-      background-color: #FAF2EE;
-      border-bottom-color: #D97757;
       font-weight: 700;
+      box-shadow: 0 0 0 2px currentColor inset;
+      transform: translateY(-1px);
     }
 
     /* 履历排版清晰化：提高行距与段落间距 */
@@ -209,28 +208,6 @@
 <body class="font-sans min-h-screen py-4 sm:py-8 md:py-10 px-3 sm:px-6 md:px-8 selection:bg-claude-terracottaBorder selection:text-claude-text">
 
   <!-- ============================================== -->
-  <!-- 顶部置顶机构导航栏 (sticky，点击锚点跳转) -->
-  <!-- ============================================== -->
-  <header class="no-print sticky top-0 z-40 bg-claude-card/95 backdrop-blur-md border-b border-claude-border shadow-sm">
-    <div class="max-w-4xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2">
-      <div class="flex items-center gap-2 shrink-0">
-        <img src="./assets/avatar.png" alt="林俊颖头像" class="w-6 h-6 rounded-md object-cover shrink-0 ring-1 ring-claude-border">
-        <div class="font-medium text-claude-text flex items-center gap-1.5 truncate">
-          <span class="truncate">林俊颖 (Buddy)</span>
-          <span class="text-[10px] text-claude-terracotta font-mono bg-claude-terracottaLight px-1.5 py-0.2 rounded border border-claude-terracottaBorder shrink-0">v4.0</span>
-        </div>
-      </div>
-      <nav class="flex items-center gap-0.5 sm:gap-1 overflow-x-auto whitespace-nowrap text-xs sm:text-sm">
-        <a href="#nonelinear" data-target="nonelinear" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">非线智能</a>
-        <a href="#jd" data-target="jd" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">京东</a>
-        <a href="#vipshop" data-target="vipshop" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">唯品会</a>
-        <a href="#outlet" data-target="outlet" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">奥特莱斯</a>
-        <a href="#qiyoudi" data-target="qiyoudi" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium shrink-0">祈优缔科技</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- ============================================== -->
   <!-- 主体卡片容器 (自适应边距与层次) -->
   <!-- ============================================== -->
   <main class="max-w-4xl mx-auto bg-claude-card border border-claude-border rounded-xl sm:rounded-2xl p-4 sm:p-8 md:p-12 shadow-claude-card">
@@ -276,18 +253,15 @@
           <span>求职意向：<strong class="text-claude-terracotta font-semibold">营销专家</strong></span>
         </p>
         <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
-          <span class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FAF2EE] text-[#D97757] border border-[#F0D4CA] shadow-xs">
-            <span>非线智能（AI）</span>
-          </span>
-          <span class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FEECEC] text-[#D32F2F] border border-[#FFCDD2] shadow-xs">
-            <span>京东</span>
-          </span>
-          <span class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#F9F0FF] text-[#8E24AA] border border-[#E1BEE7] shadow-xs">
-            <span>唯品会</span>
-          </span>
-          <span class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FFF8E1] text-[#B78103] border border-[#FFE082] shadow-xs">
-            <span>奥特莱斯</span>
-          </span>
+          <!-- 机构导航：锚点跳转 + 滚动高亮 -->
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <span class="text-xs text-claude-textMuted font-medium mr-0.5">服务过的企业：</span>
+            <a href="#nonelinear" data-target="nonelinear" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FAF2EE] text-[#D97757] border border-[#F0D4CA] shadow-xs transition-colors">非线智能</a>
+            <a href="#jd" data-target="jd" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FEECEC] text-[#D32F2F] border border-[#FFCDD2] shadow-xs transition-colors">京东</a>
+            <a href="#vipshop" data-target="vipshop" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#F9F0FF] text-[#8E24AA] border border-[#E1BEE7] shadow-xs transition-colors">唯品会</a>
+            <a href="#outlet" data-target="outlet" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FFF8E1] text-[#B78103] border border-[#FFE082] shadow-xs transition-colors">奥特莱斯</a>
+            <a href="#qiyoudi" data-target="qiyoudi" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9] shadow-xs transition-colors">祈优缔科技</a>
+          </div>
         </div>
       </div>
 
@@ -1539,7 +1513,7 @@
         .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
 
       function onScroll() {
-        const headerOffset = 72; // sticky 高度 + 少量缓冲
+        const headerOffset = 12; // 卡片顶部无 sticky，用较小偏移让第一个板块更早高亮
         let currentId = null;
         for (const sec of sections) {
           if (sec.getBoundingClientRect().top <= headerOffset) {
