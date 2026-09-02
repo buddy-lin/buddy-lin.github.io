@@ -147,7 +147,7 @@
     /* 打印与 A4 导出优化 */
     @page {
       size: A4 portrait;
-      margin: 12mm 14mm;
+      margin: 10mm 12mm;
     }
 
     @media print {
@@ -166,7 +166,7 @@
         box-shadow: none !important;
         text-shadow: none !important;
       }
-      header, .no-print, #toast, #lightbox {
+      header, .no-print, #toast, #lightbox, #lightbox-stack {
         display: none !important;
       }
       main {
@@ -177,9 +177,23 @@
         margin: 0 !important;
         background: #FFFFFF !important;
       }
-      /* 卡片与模块防分页截断 */
-      .timeline-item, .grid > div, .bg-claude-bg, .bg-claude-bg\/60, .bg-claude-bg\/50,
-      .bg-white, .print-avoid-break, section > div {
+      /* 收敛纵向间距，避免页面之间出现大片空白 */
+      main > section, main > nav, main > div {
+        margin-top: 0.6rem !important;
+        margin-bottom: 0.6rem !important;
+      }
+      .my-6, .my-8, .my-10, .mt-6, .mt-8, .mt-10, .mt-3, .mt-4, .mt-5,
+      .mb-6, .mb-8, .mb-10, .mb-3, .mb-4, .mb-5 {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+      }
+      section {
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+      /* 只有单个内容块防分页，不做整格强avoid，避免把大段内容整体推到下一页 */
+      .timeline-item, .bg-white, .bg-claude-bg, .bg-claude-bg\/60, .bg-claude-bg\/50,
+      .print-avoid-break, .proof-thumb {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
@@ -198,16 +212,37 @@
         page-break-after: avoid !important;
         break-after: avoid !important;
       }
-      section {
-        page-break-before: auto !important;
-      }
       img {
         max-width: 100% !important;
+        page-break-inside: avoid !important;
       }
     }
   </style>
 </head>
 <body class="font-sans min-h-screen py-4 sm:py-8 md:py-10 px-3 sm:px-6 md:px-8 selection:bg-claude-terracottaBorder selection:text-claude-text">
+
+  <!-- ============================================== -->
+  <!-- 顶部工具条：个人标识 + 导出PDF / 联系我 -->
+  <!-- ============================================== -->
+  <div class="no-print max-w-4xl mx-auto flex items-center justify-between gap-3 mb-4 sm:mb-5">
+    <div class="flex items-center gap-2 shrink-0">
+      <img src="./assets/avatar.png" alt="林俊颖头像" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover shrink-0 ring-1 ring-claude-border">
+      <div class="font-medium text-claude-text flex items-center gap-1.5 truncate">
+        <span class="truncate">林俊颖 (Buddy)</span>
+        <span class="text-[10px] text-claude-terracotta font-mono bg-claude-terracottaLight px-1.5 py-0.2 rounded border border-claude-terracottaBorder shrink-0">v4.0</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <button onclick="exportToPDF()" class="flex items-center gap-1.5 bg-white hover:bg-claude-tagBg text-claude-text font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm border border-claude-border transition-all shadow-sm">
+        <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-claude-terracotta"></i>
+        <span>导出 PDF</span>
+      </button>
+      <button onclick="scrollToContact()" class="flex items-center gap-1.5 bg-claude-terracotta hover:bg-claude-terracottaHover text-white font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm transition-all shadow-claude-button">
+        <i data-lucide="phone-call" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+        <span>联系我</span>
+      </button>
+    </div>
+  </div>
 
   <!-- ============================================== -->
   <!-- 主体卡片容器 (自适应边距与层次) -->
@@ -910,7 +945,7 @@
     <!-- ============================================== -->
     <!-- 5. 底部名片与联系通道 -->
     <!-- ============================================== -->
-    <section class="mt-8 sm:mt-10 pt-6 border-t border-claude-border">
+    <section class="mt-8 sm:mt-10 pt-6 border-t border-claude-border" id="contact">
       <div class="bg-claude-bg border border-claude-border rounded-xl sm:rounded-2xl p-5 sm:p-8 text-center relative shadow-claude-card">
         <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-xl bg-claude-terracotta text-white text-xl sm:text-2xl font-serif font-bold flex items-center justify-center mx-auto mb-2.5 shadow-claude-button">
           林
@@ -1042,6 +1077,12 @@
       setTimeout(() => {
         window.print();
       }, 300);
+    }
+
+    // 滚到底部联系方式
+    function scrollToContact() {
+      const el = document.getElementById('contact');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // 复制功能
