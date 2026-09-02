@@ -108,14 +108,24 @@
     /* 打印与 A4 导出优化 */
     @page {
       size: A4 portrait;
-      margin: 10mm 12mm;
+      margin: 12mm 14mm;
     }
 
     @media print {
-      body {
+      html, body {
         background: #FFFFFF !important;
-        color: #000000 !important;
+        color: #1F1E1B !important;
         padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      /* 强制所有元素保留背景色与颜色 */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
       }
       header, .no-print, #toast, #lightbox {
         display: none !important;
@@ -126,14 +136,34 @@
         box-shadow: none !important;
         padding: 0 !important;
         margin: 0 !important;
+        background: #FFFFFF !important;
       }
-      .bg-claude-bg, .bg-claude-bg\/60, .bg-claude-bg\/50 {
+      /* 卡片与模块防分页截断 */
+      .timeline-item, .grid > div, .bg-claude-bg, .bg-claude-bg\/60, .bg-claude-bg\/50,
+      .bg-white, .print-avoid-break, section > div {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .bg-claude-bg, .bg-claude-bg\/60, .bg-claude-bg\/50, .bg-claude-terracottaLight,
+      .bg-claude-tagBg {
         background-color: #FBF9F6 !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
       }
-      .border-claude-border {
+      .border-claude-border, .border-claude-borderLight {
         border-color: #E2DDD5 !important;
+      }
+      .border-claude-terracottaBorder {
+        border-color: #EDCDBE !important;
+      }
+      /* 标题与内容不因分页被剪切 */
+      h1, h2, h3, h4 {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+      section {
+        page-break-before: auto !important;
+      }
+      img {
+        max-width: 100% !important;
       }
     }
   </style>
@@ -145,12 +175,10 @@
   <!-- ============================================== -->
   <header class="no-print max-w-4xl mx-auto mb-4 sm:mb-6 flex items-center justify-between px-1 text-xs text-claude-textSecondary">
     <div class="flex items-center gap-2">
-      <div class="w-6 h-6 rounded-md bg-claude-terracotta text-white flex items-center justify-center font-serif font-bold text-xs shrink-0">
-        L
-      </div>
+      <img src="./assets/avatar.png" alt="林俊颖头像" class="w-6 h-6 rounded-md object-cover shrink-0 ring-1 ring-claude-border">
       <div class="font-medium text-claude-text flex items-center gap-1.5 truncate">
         <span class="truncate">林俊颖 (Buddy)</span>
-        <span class="text-[10px] text-claude-terracotta font-mono bg-claude-terracottaLight px-1.5 py-0.2 rounded border border-claude-terracottaBorder shrink-0">v2.0</span>
+        <span class="text-[10px] text-claude-terracotta font-mono bg-claude-terracottaLight px-1.5 py-0.2 rounded border border-claude-terracottaBorder shrink-0">v3.0</span>
       </div>
     </div>
     <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
@@ -191,10 +219,15 @@
         </span>
       </div>
 
-      <!-- 姓名与英文名 -->
-      <h1 class="claude-heading text-2xl sm:text-3xl md:text-4xl font-semibold text-claude-text tracking-tight leading-snug mb-2 sm:mb-3">
-        林俊颖 <span class="text-lg sm:text-xl font-sans font-normal text-claude-textMuted ml-1 sm:ml-2">Buddy</span>
-      </h1>
+      <!-- 姓名与英文名 + 头像 -->
+      <div class="flex items-center gap-3.5 sm:gap-4 mb-2 sm:mb-3">
+        <img src="./assets/avatar.png" alt="林俊颖 (Buddy) 头像" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover shrink-0 shadow-claude-card ring-1 ring-claude-border">
+        <div class="flex-1 min-w-0">
+          <h1 class="claude-heading text-2xl sm:text-3xl md:text-4xl font-semibold text-claude-text tracking-tight leading-snug">
+            林俊颖 <span class="text-lg sm:text-xl font-sans font-normal text-claude-textMuted ml-1 sm:ml-2">Buddy</span>
+          </h1>
+        </div>
+      </div>
 
       <!-- 精炼属性与一句话画像 (凝练短语) -->
       <div class="space-y-1 max-w-3xl">
@@ -278,7 +311,7 @@
     </div>
 
     <div class="p-3 sm:p-4 rounded-xl border border-claude-border bg-claude-bg/50 flex flex-col justify-between hover:border-claude-terracottaBorder transition-colors">
-      <span class="text-xs text-claude-textSecondary">内容营销大师</span>
+      <span class="text-xs text-claude-textSecondary">内容营销专长</span>
       <div class="my-1">
         <span class="text-xl sm:text-2xl font-bold font-serif text-claude-text">500万</span>
         <span class="text-xs text-claude-textSecondary ml-0.5">新用户</span>
@@ -493,7 +526,7 @@
               <span>内容金字塔与双飞轮转化模型</span>
             </div>
             <div class="flex items-center gap-1.5">
-              <button onclick="openLightbox('./assets/微信推文_微信推文截图.jpg', '微信公众号爆款推文手机端排版长图')" class="text-[10px] text-claude-terracotta hover:underline font-medium inline-flex items-center gap-0.5">
+              <button onclick="openLightbox('./assets/微信推文_微信长文截图.jpg', '微信公众号爆款推文手机端排版长图')" class="text-[10px] text-claude-terracotta hover:underline font-medium inline-flex items-center gap-0.5">
                 <i data-lucide="smartphone" class="w-3 h-3"></i> 看推文长图
               </button>
               <span class="text-[10px] text-claude-terracotta font-medium bg-claude-terracottaLight px-1.5 py-0.5 rounded border border-claude-terracottaBorder">获10万+大客</span>
@@ -678,9 +711,14 @@
           <div class="space-y-2 text-xs text-claude-textSecondary leading-relaxed">
             <!-- 丝路稳定币 -->
             <div class="p-3 bg-claude-bg rounded-lg border border-claude-border">
-              <div class="font-bold text-claude-text mb-1 flex items-center gap-1">
-                <i data-lucide="coins" class="w-3.5 h-3.5 text-claude-terracotta"></i>
-                丝路奥莱稳定币项目策划与路演：
+              <div class="flex items-center justify-between mb-1">
+                <div class="font-bold text-claude-text flex items-center gap-1">
+                  <i data-lucide="coins" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                  丝路奥莱稳定币项目策划与路演：
+                </div>
+                <button onclick="openLightbox('./assets/outlet/outlet_stablecoin.png', '奥莱稳定币项目策划与路演实录')" class="text-[10px] text-claude-terracotta hover:underline font-medium flex items-center gap-0.5 shrink-0">
+                  <i data-lucide="image" class="w-3 h-3"></i> 稳定币证图
+                </button>
               </div>
               <ul class="list-disc list-inside space-y-0.5 pl-0.5">
                 <li>合资联手<strong>光大、国家开行、清华大学</strong>申请千亿级“丝路稳定币”；主导项目总策划与数十场路演，设立 <strong>2亿 SPV</strong> 并提交方案。</li>
@@ -691,25 +729,18 @@
 
             <!-- AI业务营销 -->
             <div class="p-3 bg-claude-bg rounded-lg border border-claude-border">
-              <div class="font-bold text-claude-text mb-1 flex items-center gap-1">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-claude-terracotta"></i>
-                AI 创新业务营销与赋能：
+              <div class="flex items-center justify-between mb-1">
+                <div class="font-bold text-claude-text flex items-center gap-1">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                  AI 创新业务营销与赋能：
+                </div>
+                <button onclick="openLightbox('./assets/outlet/outlet_fitting.png', 'AI 换装工具小程序实操展示')" class="text-[10px] text-claude-terracotta hover:underline font-medium flex items-center gap-0.5 shrink-0">
+                  <i data-lucide="image" class="w-3 h-3"></i> 换装工具
+                </button>
               </div>
               <ul class="list-disc list-inside space-y-0.5 pl-0.5">
                 <li><strong>AI 视觉降本：</strong>合作深圳罗铮，批量产出 <strong>1000+ 电商商详页</strong>；主导制作微信小程序<strong>“AI 换装工具”</strong>。</li>
                 <li><strong>AI 培训：</strong>东方逸尚设计学院课程培训、广发银行管理增效 (OpenCLAW) 培训。</li>
-              </ul>
-            </div>
-
-            <!-- AI产品自研变现 -->
-            <div class="p-3 bg-claude-bg rounded-lg border border-claude-border">
-              <div class="font-bold text-claude-text mb-1 flex items-center gap-1">
-                <i data-lucide="code" class="w-3.5 h-3.5 text-claude-terracotta"></i>
-                AI 产品独立研发与变现：
-              </div>
-              <ul class="list-disc list-inside space-y-0.5 pl-0.5">
-                <li>自学逆向工程与协议，独立开发脱机工具、封包分析拦截工具与自动化脚本。</li>
-                <li>全网独立宣发，累计交付 <strong>1342 份</strong>，实现个人技术纯利变现。</li>
               </ul>
             </div>
           </div>
@@ -753,12 +784,12 @@
               </ul>
             </div>
 
-            <!-- AI视频管线与IP -->
+            <!-- 企业共创 -->
             <div class="p-3 bg-claude-bg rounded-lg border border-claude-border">
               <div class="flex items-center justify-between mb-1">
                 <div class="font-bold text-claude-text flex items-center gap-1">
                   <i data-lucide="video" class="w-3.5 h-3.5 text-claude-terracotta"></i>
-                  <span>AI 工业化视频矩阵与 IP 孵化变现：</span>
+                  <span>企业共创：</span>
                 </div>
                 <button onclick="openLightbox('./assets/case_pdf_pages/page_7.png', '经典案例战报：夏迪心理学IP 20万粉/5000万播放与短剧矩阵')" class="text-[10px] text-claude-terracotta hover:underline font-medium flex items-center gap-0.5">
                   <i data-lucide="image" class="w-3 h-3"></i> 战报图
@@ -949,8 +980,8 @@
             擅长大模型业务赋能：内容流水线、定向爬虫、逆向协议与自动化工具研发变现。
           </p>
           <div class="flex flex-wrap gap-1">
-            <span class="bg-white border border-claude-border px-2 py-0.5 rounded text-claude-textSecondary">OpenCLAW / Nanobanna</span>
-            <span class="bg-white border border-claude-border px-2 py-0.5 rounded text-claude-textSecondary">Gemini / Flow / Tapnow</span>
+            <span class="bg-white border border-claude-border px-2 py-0.5 rounded text-claude-textSecondary">Work buddy/Codex</span>
+            <span class="bg-white border border-claude-border px-2 py-0.5 rounded text-claude-textSecondary">Gemini / GPT / GLM</span>
             <span class="bg-white border border-claude-border px-2 py-0.5 rounded text-claude-textSecondary">逆向工程 / 自动化脚本</span>
             <span class="bg-white border border-claude-border px-2 py-0.5 rounded text-claude-textSecondary">AI 批量图文与视频流水线</span>
             <span class="bg-white border border-claude-border px-2 py-0.5 rounded text-claude-textSecondary">GitHub 爬虫与自动化邮件营销</span>
@@ -1012,9 +1043,13 @@
       <!-- 顶部操作栏 -->
       <div class="w-full flex items-center justify-between mb-2 px-1">
         <div class="flex items-center gap-1.5 overflow-hidden">
-          <div id="lightbox-title" class="text-white text-xs sm:text-sm font-medium px-2.5 py-1 rounded-full bg-black/60 border border-white/15 truncate max-w-[200px] sm:max-w-md">
+          <div id="lightbox-title" class="text-white text-xs sm:text-sm font-medium px-2.5 py-1 rounded-full bg-black/60 border border-white/15 truncate max-w-[160px] sm:max-w-md">
             图片查看
           </div>
+          <button id="lightbox-reset" onclick="resetLightboxZoom()" class="hidden inline-flex items-center gap-1 text-[10px] sm:text-[11px] text-white/90 hover:text-white bg-white/10 hover:bg-white/20 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-white/15 transition-colors shrink-0">
+            <i data-lucide="refresh-ccw" class="w-3 h-3"></i>
+            <span>复位</span>
+          </button>
           <a id="lightbox-raw-link" href="#" target="_blank" class="inline-flex items-center gap-1 text-[10px] sm:text-[11px] text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-white/15 transition-colors shrink-0">
             <i data-lucide="external-link" class="w-3 h-3"></i>
             <span>原图</span>
@@ -1028,9 +1063,9 @@
         </button>
       </div>
 
-      <!-- 图片内容容器 -->
-      <div id="lightbox-img-container" class="w-full flex items-center justify-center overflow-auto max-h-[75vh] sm:max-h-[82vh] rounded-xl bg-black/50 border border-white/10 shadow-2xl p-1 sm:p-3">
-        <img id="lightbox-img" src="" alt="大图" class="max-w-full max-h-[72vh] sm:max-h-[80vh] w-auto h-auto object-contain rounded-lg shadow-md transition-all">
+      <!-- 图片内容容器 (支持手势缩放/拖拽) -->
+      <div id="lightbox-img-container" class="w-full flex items-center justify-center overflow-hidden max-h-[75vh] sm:max-h-[82vh] rounded-xl bg-black/50 border border-white/10 shadow-2xl p-1 sm:p-3 relative">
+        <img id="lightbox-img" src="" alt="大图" class="max-w-full max-h-[72vh] sm:max-h-[80vh] w-auto h-auto object-contain rounded-lg shadow-md transition-transform duration-150 ease-out select-none" style="transform-origin: center center; cursor: grab; touch-action: none;">
       </div>
 
       <!-- 视频内容容器 -->
@@ -1203,7 +1238,225 @@
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       document.body.style.overflow = '';
+      resetLightboxZoom();
     }
+
+    // ==========================================
+    // 图片手势缩放与拖拽引擎 (Pinch-to-zoom & Pan)
+    // ==========================================
+    // 状态
+    let zState = { scale: 1, tx: 0, ty: 0, min: 1, max: 4 };
+    const Z_MAX = 4;
+
+    function getZoomImg() { return document.getElementById('lightbox-img'); }
+    function getZoomResetBtn() { return document.getElementById('lightbox-reset'); }
+
+    // 应用到图片 transform
+    function applyZoomTransform() {
+      const img = getZoomImg();
+      const s = zState.scale, tx = zState.tx, ty = zState.ty;
+      if (img) img.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
+      const btn = getZoomResetBtn();
+      if (btn) btn.classList.toggle('hidden', s <= 1.02 && Math.abs(tx) < 2 && Math.abs(ty) < 2);
+    }
+
+    // 复位
+    function resetLightboxZoom() {
+      zState = { scale: 1, tx: 0, ty: 0, min: 1, max: Z_MAX };
+      const img = getZoomImg();
+      if (img) {
+        img.style.transition = 'transform 0.25s ease';
+        applyZoomTransform();
+        setTimeout(() => { if (img) img.style.transition = 'transform 0.15s ease-out'; }, 250);
+      }
+    }
+
+    // 限制平移在容器范围内
+    function clampPan(scale, tx, ty) {
+      const img = getZoomImg();
+      const container = document.getElementById('lightbox-img-container');
+      if (!img || !container) return { tx, ty };
+      // 用 container 尺寸作为参考边界
+      const cw = container.clientWidth, ch = container.clientHeight;
+      const iw = img.offsetWidth * scale, ih = img.offsetHeight * scale;
+      const maxX = Math.max(0, (iw - cw) / 2);
+      const maxY = Math.max(0, (ih - ch) / 2);
+      tx = Math.max(-maxX, Math.min(maxX, tx));
+      ty = Math.max(-maxY, Math.min(maxY, ty));
+      return { tx, ty };
+    }
+
+    // ---- 桌面端: 鼠标滚轮缩放 ----
+    (function initWheel() {
+      const container = document.getElementById('lightbox-img-container');
+      if (!container) return;
+      container.addEventListener('wheel', (e) => {
+        if (document.getElementById('lightbox-video-container') && !document.getElementById('lightbox-video-container').classList.contains('hidden')) return;
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.12 : 0.12;
+        const newScale = Math.min(Z_MAX, Math.max(1, zState.scale + delta));
+        const rect = container.getBoundingClientRect();
+        const cx = e.clientX - rect.left - rect.width / 2;
+        const cy = e.clientY - rect.top - rect.height / 2;
+        // 以鼠标为中心缩放
+        const ratio = newScale / zState.scale;
+        zState.tx = cx - (cx - zState.tx) * ratio;
+        zState.ty = cy - (cy - zState.ty) * ratio;
+        zState.scale = newScale;
+        const c = clampPan(zState.scale, zState.tx, zState.ty);
+        zState.tx = c.tx; zState.ty = c.ty;
+        applyZoomTransform();
+      }, { passive: false });
+    })();
+
+    // ---- 桌面端: 鼠标拖拽平移 ----
+    (function initDrag() {
+      const container = document.getElementById('lightbox-img-container');
+      if (!container) return;
+      let dragging = false, startX = 0, startY = 0, startTx = 0, startTy = 0;
+
+      container.addEventListener('mousedown', (e) => {
+        if (zState.scale <= 1) return;
+        dragging = true;
+        startX = e.clientX; startY = e.clientY;
+        startTx = zState.tx; startTy = zState.ty;
+        const img = getZoomImg();
+        if (img) img.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+        zState.tx = startTx + (e.clientX - startX);
+        zState.ty = startTy + (e.clientY - startY);
+        const c = clampPan(zState.scale, zState.tx, zState.ty);
+        zState.tx = c.tx; zState.ty = c.ty;
+        applyZoomTransform();
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!dragging) return;
+        dragging = false;
+        const img = getZoomImg();
+        if (img) img.style.cursor = 'grab';
+      });
+    })();
+
+    // ---- 移动端: 双指 Pinch-to-zoom + 单指/双指平移 ----
+    (function initTouch() {
+      const container = document.getElementById('lightbox-img-container');
+      if (!container) return;
+      let active = false;
+      let initialDist = 0, lastTouchDist = 0;
+      let initialScale = 1;
+      let lastCenterX = 0, lastCenterY = 0;
+
+      function touchDist(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      function touchCenter(touches) {
+        return {
+          x: (touches[0].clientX + touches[1].clientX) / 2,
+          y: (touches[0].clientY + touches[1].clientY) / 2
+        };
+      }
+
+      container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          // 单指：记录用于平移（仅当已缩放）
+          active = true;
+          lastCenterX = e.touches[0].clientX;
+          lastCenterY = e.touches[0].clientY;
+        } else if (e.touches.length === 2) {
+          active = true;
+          initialDist = touchDist(e.touches);
+          lastTouchDist = initialDist;
+          initialScale = zState.scale;
+          const c = touchCenter(e.touches);
+          lastCenterX = c.x; lastCenterY = c.y;
+        }
+      }, { passive: false });
+
+      container.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (!active) return;
+        const rect = container.getBoundingClientRect();
+
+        if (e.touches.length === 2) {
+          const dist = touchDist(e.touches);
+          const c = touchCenter(e.touches);
+          // 计算新缩放
+          let newScale = initialScale * (dist / initialDist);
+          newScale = Math.min(Z_MAX, Math.max(1, newScale));
+          // 以双指中心为锚点缩放 + 平移
+          const cx = c.x - rect.left - rect.width / 2;
+          const cy = c.y - rect.top - rect.height / 2;
+          const ratio = (newScale / zState.scale) || 1;
+          zState.tx = cx - (cx - zState.tx) * ratio + (c.x - lastCenterX);
+          zState.ty = cy - (cy - zState.ty) * ratio + (c.y - lastCenterY);
+          zState.scale = newScale;
+          lastCenterX = c.x; lastCenterY = c.y;
+          lastTouchDist = dist;
+          const cl = clampPan(zState.scale, zState.tx, zState.ty);
+          zState.tx = cl.tx; zState.ty = cl.ty;
+          applyZoomTransform();
+        } else if (e.touches.length === 1) {
+          // 单指平移（仅在缩放后允许）
+          if (zState.scale > 1) {
+            const dx = e.touches[0].clientX - lastCenterX;
+            const dy = e.touches[0].clientY - lastCenterY;
+            zState.tx += dx; zState.ty += dy;
+            const cl = clampPan(zState.scale, zState.tx, zState.ty);
+            zState.tx = cl.tx; zState.ty = cl.ty;
+            applyZoomTransform();
+            lastCenterX = e.touches[0].clientX;
+            lastCenterY = e.touches[0].clientY;
+          }
+        }
+      }, { passive: false });
+
+      container.addEventListener('touchend', (e) => {
+        if (e.touches.length < 2) lastTouchDist = 0;
+        if (e.touches.length === 0) active = false;
+      });
+    })();
+
+    // ---- 桌面端: 双击快速复位/放大 ----
+    (function initDblClick() {
+      const container = document.getElementById('lightbox-img-container');
+      if (!container) return;
+      container.addEventListener('dblclick', (e) => {
+        if (zState.scale > 1) {
+          resetLightboxZoom();
+        } else {
+          const rect = container.getBoundingClientRect();
+          const cx = e.clientX - rect.left - rect.width / 2;
+          const cy = e.clientY - rect.top - rect.height / 2;
+          zState.scale = 2.5;
+          zState.tx = -cx * 1.5;
+          zState.ty = -cy * 1.5;
+          const cl = clampPan(zState.scale, zState.tx, zState.ty);
+          zState.tx = cl.tx; zState.ty = cl.ty;
+          applyZoomTransform();
+        }
+      });
+    })();
+
+    // ---- 每次切换图片后复位缩放 ----
+    const _origOpenLightbox = openLightbox;
+    openLightbox = function(src, title) {
+      resetLightboxZoom();
+      _origOpenLightbox(src, title);
+    };
+
+    const _origUpdateGroupView = updateGroupView;
+    updateGroupView = function() {
+      resetLightboxZoom();
+      _origUpdateGroupView();
+    };
 
     // 键盘监听
     document.addEventListener('keydown', (e) => {
