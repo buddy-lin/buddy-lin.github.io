@@ -135,6 +135,23 @@
       }
     }
 
+    /* 打印时收敛履历行距，保证历史条目能完整放进同一页 */
+    @media print {
+      .timeline-item .space-y-2 {
+        row-gap: 0.9rem !important;
+      }
+      .timeline-item ul {
+        line-height: 1.6 !important;
+      }
+      .timeline-item ul li {
+        margin-bottom: 0.35rem !important;
+      }
+      .timeline-item {
+        margin-top: 0.9rem !important;
+        margin-bottom: 0.9rem !important;
+      }
+    }
+
     /* 交互悬浮微动效 */
     .proof-thumb {
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -706,8 +723,7 @@
               </div>
               <ul class="list-disc list-inside space-y-0.5 pl-0.5">
                 <li>合资联手<strong>光大、国家开行、清华大学</strong>申请千亿级“丝路稳定币”；主导项目总策划与数十场路演，设立 <strong>2亿 SPV</strong> 并提交方案。</li>
-                <li>策划申请香港虚拟资产<strong>“奥莱通”（已落地）</strong>，策划交易平台与 RWA 产品。</li>
-                <li>个人 Web3 币链公众号粉丝从 0 到 3000。</li>
+                <li>策划申请香港虚拟资产<strong>“奥莱通”（已落地）</strong>并搭建交易平台与 RWA 产品；个人 Web3 币链公众号从 0 到 3000。</li>
               </ul>
             </div>
 
@@ -757,14 +773,13 @@
               </div>
               <ul class="list-disc list-inside space-y-0.5 pl-0.5">
                 <li>把非标的企业招聘服务，标准化拆解为可规模化交付的「电商单品」，自建分发与转化链路，构建高毛利 B 端产品模型。</li>
-                <li>服务<strong>海尔、美的、平安、顺丰、字节</strong>等 <strong>10040 家企业</strong>（含多家世界 500 强），整体 ROI 10+。</li>
-                <li>模式跑通后平台净利润达 <strong>120万+</strong>，成为可复制的盈利样板；带货矩阵号单视频 <strong>3 小时涨粉 4000+</strong>，累计 GMV 12万。</li>
+                <li>服务<strong>海尔、美的、平安、顺丰、字节</strong>等 <strong>10040 家企业</strong>（含多家世界 500 强），整体 ROI 10+；平台净利润 <strong>120万+</strong>，带货矩阵号单视频 <strong>3 小时涨粉 4000+</strong>，累计 GMV 12万。</li>
               </ul>
             </div>
 
             <!-- 企业共创 -->
-            <div class="p-3 bg-claude-bg rounded-lg border border-claude-border">
-              <div class="flex items-center justify-between mb-1">
+            <div class="p-2.5 bg-claude-bg rounded-lg border border-claude-border">
+              <div class="flex items-center justify-between mb-0.5">
                 <div class="font-bold text-claude-text flex items-center gap-1">
                   <span>企业共创：</span>
                 </div>
@@ -773,8 +788,7 @@
                 </button>
               </div>
               <ul class="list-disc list-inside space-y-0.5 pl-0.5">
-                <li>孵化知识 IP<strong>《夏迪心理学》</strong>，全网粉丝 <strong>20万</strong>、播放 <strong>5000万+</strong>，带动图书销售 2万+ 册。</li>
-                <li>自研 AI 内容流水线，日产 <strong>100+ 条短视频</strong>；短剧 CPS 分销代理 <strong>500+ 人</strong>，月流水超 20 万元。</li>
+                <li>孵化 IP<strong>《夏迪心理学》</strong>全网粉丝 <strong>20万</strong>、播放 <strong>5000万+</strong>，带动图书销售 2万+ 册；自研 AI 流水线日产 <strong>100+ 条短视频</strong>，短剧 CPS 代理 <strong>500+ 人</strong>月流水超 20 万。</li>
               </ul>
             </div>
           </div>
