@@ -98,7 +98,7 @@
 
     /* 锚点跳转补偿置顶导航栏高度 */
     #nonelinear, #jd, #vipshop, #outlet, #qiyoudi {
-      scroll-margin-top: 64px;
+      scroll-margin-top: 74px;
     }
 
     /* 机构导航当前板块高亮（简洁文字选中态：红字 + 淡底 + 底部红条） */
@@ -918,7 +918,7 @@
     <!-- ============================================== -->
     <!-- 4. 专业技能矩阵 (精炼标签) -->
     <!-- ============================================== -->
-    <section class="my-8 sm:my-10 pt-1 print-break-page">
+    <section class="my-8 sm:my-10 pt-1">
       <div class="border-b border-claude-border pb-3 mb-5">
         <span class="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-claude-terracotta block">EXPERTISE & CAPABILITIES</span>
         <h2 class="claude-heading text-lg sm:text-2xl font-semibold text-claude-text">
@@ -967,7 +967,7 @@
     <!-- ============================================== -->
     <!-- 5. 底部名片与联系通道 -->
     <!-- ============================================== -->
-    <section class="mt-8 sm:mt-10 pt-6 border-t border-claude-border" id="contact">
+    <section class="mt-8 sm:mt-10 pt-6 border-t border-claude-border no-print" id="contact">
       <div class="bg-claude-bg border border-claude-border rounded-xl sm:rounded-2xl p-5 sm:p-8 text-center relative shadow-claude-card">
         <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-xl bg-claude-terracotta text-white text-xl sm:text-2xl font-serif font-bold flex items-center justify-center mx-auto mb-2.5 shadow-claude-button">
           林
@@ -1577,8 +1577,21 @@
         .filter(x => x)
         .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
 
+      function setActive(id) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.target === id);
+        });
+      }
+
+      // 点击锚点立即高亮对应导航，避免滚动判定因 scroll-margin 停靠点偏离而误命中上一板块
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          setActive(link.dataset.target);
+        });
+      });
+
       function onScroll() {
-        const headerOffset = 52; // 吸顶导航条高度 + 少量缓冲，命中锚点区域即高亮
+        const headerOffset = 82; // 需 > scroll-margin-top(74px)，否则锚点跳转停靠后 top=74 不被判定命中，会误命中上一板块
         let currentId = null;
         for (const sec of sections) {
           if (sec.getBoundingClientRect().top <= headerOffset) {
@@ -1589,9 +1602,7 @@
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 4) {
           currentId = sections[sections.length - 1].id;
         }
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.dataset.target === currentId);
-        });
+        setActive(currentId);
       }
 
       window.addEventListener('scroll', onScroll, { passive: true });
