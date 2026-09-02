@@ -1063,8 +1063,8 @@
         </button>
       </div>
 
-      <!-- 图片内容容器 (支持手势缩放/拖拽) -->
-      <div id="lightbox-img-container" class="w-full flex items-center justify-center overflow-hidden max-h-[75vh] sm:max-h-[82vh] rounded-xl bg-black/50 border border-white/10 shadow-2xl p-1 sm:p-3 relative">
+      <!-- 图片内容容器 (支持手势缩放/拖拽；长图自动进入滚动模式) -->
+      <div id="lightbox-img-container" class="w-full flex items-start justify-center overflow-hidden max-h-[75vh] sm:max-h-[82vh] rounded-xl bg-black/50 border border-white/10 shadow-2xl p-1 sm:p-3 relative">
         <img id="lightbox-img" src="" alt="大图" class="max-w-full max-h-[72vh] sm:max-h-[80vh] w-auto h-auto object-contain rounded-lg shadow-md transition-transform duration-150 ease-out select-none" style="transform-origin: center center; cursor: grab; touch-action: none;">
       </div>
 
@@ -1135,6 +1135,58 @@
     let currentGroupTitles = [];
     let currentGroupIndex = 0;
 
+    // ==========================================
+    // 超长图检测 & 展示模式(滚动/居中) 切换
+    // ==========================================
+    // 阈值：当图片高/宽比超过该值时视为纵向长图，宽度铺满容器并允许下滑查看
+    const LONG_IMAGE_AR = 2.2; // 高/宽比 > 2.2 视为长图
+
+    function isLongImage(img) {
+      if (!img) return false;
+      // 用 naturalWidth/Height 判断真实像素比例（图片加载完成后读取）
+      const nw = img.naturalWidth, nh = img.naturalHeight;
+      if (nw > 0 && nh > 0) return (nh / nw) > LONG_IMAGE_AR;
+      return false;
+    }
+
+    // 根据是否长图调整容器与图片的展示方式
+    function applyImageDisplayMode() {
+      const container = document.getElementById('lightbox-img-container');
+      const img = document.getElementById('lightbox-img');
+      if (!container || !img) return;
+
+      const isLong = isLongImage(img);
+
+      if (isLong) {
+        // 长图：容器纵向滚动、宽度铺满、顶部对齐、允许滚轮/触控滚动下滑
+        container.classList.remove('overflow-hidden');
+        container.classList.remove('items-center');
+        // 用内联样式强制滚动模式，避免依赖 Tailwind 动态类扫描
+        container.style.overflowY = 'auto';
+        container.style.overflowX = 'hidden';
+        container.style.alignItems = 'flex-start';
+        container.style.justifyContent = 'center';
+        img.classList.remove('max-h-[72vh]', 'sm:max-h-[80vh]', 'object-contain', 'mx-auto', 'w-auto', 'h-auto');
+        img.style.maxHeight = 'none';
+        img.style.height = 'auto';
+        img.style.width = '100%';
+        img.style.objectFit = 'contain';
+        img.style.display = 'block';
+      } else {
+        // 普通图（横图/方图）：居中自适应
+        container.style.overflowY = '';
+        container.style.overflowX = '';
+        container.style.alignItems = '';
+        container.style.justifyContent = '';
+        img.classList.add('max-h-[72vh]', 'sm:max-h-[80vh]', 'object-contain', 'mx-auto', 'w-auto', 'h-auto');
+        img.style.maxHeight = '';
+        img.style.height = '';
+        img.style.width = '';
+        img.style.objectFit = '';
+        img.style.display = '';
+      }
+    }
+
     function openLightbox(src, title) {
       const modal = document.getElementById('lightbox');
       const imgContainer = document.getElementById('lightbox-img-container');
@@ -1153,6 +1205,9 @@
       if (rawLink) {
         rawLink.href = src;
       }
+      // 图片加载完成后，依据实际比例决定是否进入长图滚动模式
+      img.onload = () => { resetLightboxZoom(); applyImageDisplayMode(); };
+      applyImageDisplayMode(); // 首次先按当前状态应用（可能尚未能判断，onload 会再次精确判断）
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
@@ -1214,6 +1269,8 @@
       if (rawLink) {
         rawLink.href = src;
       }
+      img.onload = () => { resetLightboxZoom(); applyImageDisplayMode(); };
+      applyImageDisplayMode();
     }
 
     function prevLightboxGroup() {
@@ -1292,6 +1349,8 @@
       if (!container) return;
       container.addEventListener('wheel', (e) => {
         if (document.getElementById('lightbox-video-container') && !document.getElementById('lightbox-video-container').classList.contains('hidden')) return;
+        // 长图且未缩放时，放行原生纵向滚动下滑查看
+        if (zState.scale <= 1.02 && isLongImage(document.getElementById('lightbox-img'))) return;
         e.preventDefault();
         const delta = e.deltaY > 0 ? -0.12 : 0.12;
         const newScale = Math.min(Z_MAX, Math.max(1, zState.scale + delta));
@@ -1364,6 +1423,12 @@
         };
       }
 
+      // 长图且未缩放时，放行原生纵向滚动（下滑查看长内容）
+      function shouldAllowNativeScroll() {
+        const img = document.getElementById('lightbox-img');
+        return zState.scale <= 1.02 && isLongImage(img);
+      }
+
       container.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
           // 单指：记录用于平移（仅当已缩放）
@@ -1378,9 +1443,12 @@
           const c = touchCenter(e.touches);
           lastCenterX = c.x; lastCenterY = c.y;
         }
-      }, { passive: false });
+      }, { passive: shouldAllowNativeScroll() });
 
       container.addEventListener('touchmove', (e) => {
+        // 长图未缩放时，让浏览器原生滚动纵向长图，不拦截
+        if (shouldAllowNativeScroll()) return;
+
         e.preventDefault();
         if (!active) return;
         const rect = container.getBoundingClientRect();
