@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>林俊颖 (Buddy) | 营销专家 · 全域增长操盘手与AI商业应用</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Newsreader (Claude signature serif) + Inter + Noto Serif SC + Noto Sans SC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Newsreader"', '"Noto Serif SC"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '"Noto Sans SC"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            // Claude 官方经典陶土暖色系 (Anthropic / Claude Palette)
+            claude: {
+              bg: '#FAF8F5',         // 经典暖纸色背景
+              card: '#FFFFFF',       // 纯白卡片
+              border: '#E8E4DC',     // 极细暖灰边框
+              borderLight: '#F2EFEA',
+              tagBg: '#F3EFE8',      // 浅米色标签底色
+              tagText: '#5C5850',    // 标签文字
+              text: '#1F1E1B',       // 主文字深炭色
+              textSecondary: '#66635B', // 次级说明文字
+              textMuted: '#949087',  // 弱化信息
+              terracotta: '#D97757', // Claude 标志性陶土红/橙 (Terracotta)
+              terracottaHover: '#C56242',
+              terracottaLight: '#FAF2EE', // 陶土浅底色
+              terracottaBorder: '#F0D4CA',
+            }
+          },
+          boxShadow: {
+            'claude-card': '0 1px 3px rgba(31, 30, 27, 0.04), 0 1px 2px rgba(31, 30, 27, 0.02)',
+            'claude-hover': '0 8px 24px rgba(31, 30, 27, 0.06), 0 2px 6px rgba(31, 30, 27, 0.03)',
+            'claude-button': '0 1px 2px rgba(217, 119, 87, 0.2)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Claude 极简优雅排版风格 */
+    body {
+      background-color: #FAF8F5;
+      color: #1F1E1B;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.65;
+      letter-spacing: -0.01em;
+    }
+
+    /* Claude 经典衬线标题 */
+    .claude-heading {
+      font-family: "Newsreader", "Noto Serif SC", Georgia, serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* 优雅标签 */
+    .claude-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #F3EFE8;
+      color: #5C5850;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid #E8E4DC;
+    }
+
+    .claude-badge-accent {
+      background-color: #FAF2EE;
+      color: #D97757;
+      border-color: #F0D4CA;
+      font-weight: 600;
+    }
+
+    /* 时间轴条目保持整块，防止打印断裂 */
+    .timeline-item {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* 打印与导出 PDF 专门优化样式 */
+    @page {
+      size: A4 portrait;
+      margin: 12mm 15mm;
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+      header, .no-print, #toast {
+        display: none !important;
+      }
+      main {
+        max-width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .bg-claude-bg, .bg-claude-bg\/60, .bg-claude-bg\/50 {
+        background-color: #FBF9F6 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .border-claude-border, .border-claude-borderLight {
+        border-color: #E2DDD5 !important;
+      }
+      .text-claude-terracotta {
+        color: #D97757 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .timeline-item, section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-4 md:py-12 px-3 sm:px-6 selection:bg-claude-terracottaLight selection:text-claude-terracotta">
+
+  <!-- 顶部极简沉浸导航 (Claude Minimal Bar) -->
+  <header class="w-full max-w-4xl bg-claude-bg/95 backdrop-blur-md border border-claude-border px-4 sm:px-5 py-3 flex items-center justify-between sticky top-3 z-50 rounded-xl shadow-claude-card no-print">
+    <div class="flex items-center space-x-3">
+      <!-- 经典 Claude 风格徽标（陶土色极简印记） -->
+      <div class="w-8 h-8 rounded-lg bg-claude-terracotta text-white flex items-center justify-center font-serif font-bold text-base shadow-sm">
+        林
+      </div>
+      <div>
+        <div class="text-xs font-semibold text-claude-text flex items-center gap-1.5">
+          <span>林俊颖 (Buddy) · 营销增长档案</span>
+          <span class="text-[11px] text-claude-terracotta font-mono bg-claude-terracottaLight px-1.5 py-0.2 rounded border border-claude-terracottaBorder">全域操盘手</span>
+        </div>
+        <div class="text-[11px] text-claude-textMuted hidden sm:block">全栈 AI 商业应用 · 10年互联网营销专家</div>
+      </div>
+    </div>
+    
+    <!-- 快捷操作与保存PDF -->
+    <div class="flex items-center space-x-2">
+      <!-- 保存为 PDF 按钮 -->
+      <button onclick="exportToPDF()" class="flex items-center gap-1.5 text-xs font-medium bg-claude-terracotta hover:bg-claude-terracottaHover text-white px-3.5 py-1.5 rounded-lg transition-all shadow-claude-button">
+        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+        <span>保存为 PDF</span>
+      </button>
+
+      <!-- 复制微信 -->
+      <button onclick="copyContact('ljy45678', '微信已复制: ljy45678')" class="flex items-center gap-1.5 text-xs font-medium bg-claude-card hover:bg-claude-terracottaLight text-claude-text hover:text-claude-terracotta px-3 py-1.5 rounded-lg transition-all border border-claude-border hover:border-claude-terracottaBorder shadow-sm">
+        <i data-lucide="message-square" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+        <span class="hidden sm:inline">微信:</span> ljy45678
+      </button>
+      
+      <a href="tel:15521176794" class="hidden md:flex items-center gap-1.5 text-xs font-medium bg-claude-card hover:bg-claude-tagBg text-claude-textSecondary px-3 py-1.5 rounded-lg transition-all border border-claude-border shadow-sm">
+        <i data-lucide="phone" class="w-3.5 h-3.5 text-claude-textMuted"></i>
+        <span>致电</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- 主体白底纯净卡片 (Claude 现代知性纸张版面) -->
+  <main class="w-full max-w-4xl bg-claude-card border border-claude-border rounded-2xl p-6 sm:p-10 md:p-12 my-6 shadow-claude-card">
+
+    <!-- ============================================== -->
+    <!-- 1. 头部标题与全景档案 (Claude Serif Header) -->
+    <!-- ============================================== -->
+    <section class="border-b border-claude-borderLight pb-8">
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <span class="inline-flex items-center gap-1.5 text-xs font-medium text-claude-terracotta bg-claude-terracottaLight px-2.5 py-1 rounded-md border border-claude-terracottaBorder">
+          <span class="w-1.5 h-1.5 rounded-full bg-claude-terracotta"></span>
+          营销专家 · 个人履历与实战战役档案
+        </span>
+        <button onclick="exportToPDF()" class="no-print hidden sm:flex items-center gap-1 text-xs text-claude-textSecondary hover:text-claude-terracotta transition-colors">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+          <span>打印 / 导出PDF</span>
+        </button>
+      </div>
+
+      <h1 class="claude-heading text-3xl sm:text-4xl md:text-[2.5rem] font-semibold text-claude-text tracking-tight leading-[1.25] mb-3">
+        林俊颖 <span class="text-xl sm:text-2xl font-sans font-normal text-claude-textMuted ml-2">Buddy</span>
+      </h1>
+
+      <div class="space-y-1.5 max-w-3xl">
+        <p class="text-xs sm:text-sm font-medium text-claude-textSecondary flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span>男</span>
+          <span class="text-claude-border">·</span>
+          <span>10年工作经验</span>
+          <span class="text-claude-border">·</span>
+          <span>华南师范大学（传播学）</span>
+          <span class="text-claude-border">·</span>
+          <span>求职意向：<strong class="text-claude-terracotta font-semibold">营销专家</strong>（深圳 / 广州）</span>
+        </p>
+        <p class="text-sm sm:text-[15px] text-claude-text leading-relaxed font-normal pt-1">
+          互联网电商营销出身，全栈型 AI 商业应用专家，擅长用户分析与全局策划，兼具“产品研发 + 增长运营 + 商业变现”闭环能力。
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-y-2 gap-x-5 text-xs text-claude-textMuted mt-4 pt-4 border-t border-claude-borderLight">
+        <span class="flex items-center gap-1.5 text-claude-textSecondary">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-claude-terracotta"></i> 意向城市：深圳 / 广州
+        </span>
+        <span class="flex items-center gap-1.5 text-claude-textSecondary">
+          <i data-lucide="phone" class="w-3.5 h-3.5 text-claude-textMuted"></i> 15521176794
+        </span>
+        <span class="flex items-center gap-1.5 text-claude-textSecondary">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5 text-claude-textMuted"></i> 微信号: ljy45678
+        </span>
+        <span class="flex items-center gap-1.5 text-claude-textSecondary">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-claude-textMuted"></i> 381271558@qq.com
+        </span>
+      </div>
+
+      <!-- Claude 风格核心指标方阵 (修改：GEO 行业NO1、50+、10亿+GMV、行业最低) -->
+      <div class="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3 bg-claude-bg p-4 sm:p-5 rounded-xl border border-claude-border">
+        <div class="sm:border-r border-claude-border/80 sm:pr-3">
+          <div class="text-[11px] text-claude-textMuted uppercase tracking-wider">GEO AI 聚合排名</div>
+          <div class="text-xl sm:text-2xl font-serif font-bold text-claude-text mt-0.5"><span class="text-claude-terracotta">GEO</span> 行业NO1</div>
+          <div class="text-[11px] text-claude-textSecondary mt-0.5">引用率 70%+ / 提及 60%+</div>
+        </div>
+        <div class="sm:border-r border-claude-border/80 sm:pr-3">
+          <div class="text-[11px] text-claude-textMuted uppercase tracking-wider">企业客户落地</div>
+          <div class="text-xl sm:text-2xl font-serif font-bold text-claude-text mt-0.5"><span class="text-claude-terracotta">50+</span> 家签约</div>
+          <div class="text-[11px] text-claude-textSecondary mt-0.5">富士康 / 兴业 / 网易等</div>
+        </div>
+        <div class="sm:border-r border-claude-border/80 sm:pr-3">
+          <div class="text-[11px] text-claude-textMuted uppercase tracking-wider">平台大促操盘</div>
+          <div class="text-xl sm:text-2xl font-serif font-bold text-claude-text mt-0.5"><span class="text-claude-terracotta">10亿+</span> GMV</div>
+          <div class="text-[11px] text-claude-textSecondary mt-0.5">京东京喜 16 个整合大促</div>
+        </div>
+        <div>
+          <div class="text-[11px] text-claude-textMuted uppercase tracking-wider">裂变与获客 ROI</div>
+          <div class="text-xl sm:text-2xl font-serif font-bold text-claude-text mt-0.5"><span class="text-claude-terracotta">10+</span> ROI</div>
+          <div class="text-[11px] text-claude-terracotta font-medium mt-0.5">获客成本行业最低</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 2. 【重点】最新工作内容：2026.04 - 2026.09 -->
+    <!-- ============================================== -->
+    <section class="my-10 pt-2">
+      
+      <!-- 章节分界标题 -->
+      <div class="flex items-baseline justify-between border-b border-claude-border pb-3 mb-6">
+        <div>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-claude-terracotta block mb-0.5">CURRENT FOCUS · 2026.04 - 2026.09</span>
+          <h2 class="claude-heading text-xl sm:text-2xl font-semibold text-claude-text">
+            非线智能 · 品牌营销与企业客户转化
+          </h2>
+        </div>
+        <span class="text-xs font-medium text-claude-terracotta bg-claude-terracottaLight px-2.5 py-1 rounded border border-claude-terracottaBorder">
+          最新实战成果
+        </span>
+      </div>
+
+      <!-- 模块一：主站流量与GEO AI -->
+      <div class="mb-7">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-1.5 h-4 bg-claude-terracotta rounded-full"></span>
+          <h3 class="text-sm sm:text-base font-semibold text-claude-text">
+            一、负责主站流量，日活 UV 与新用户转化
+          </h3>
+        </div>
+
+        <div class="bg-claude-bg/60 border border-claude-border rounded-xl p-4 sm:p-5 space-y-4">
+          <!-- GEO 成绩横幅 -->
+          <div class="bg-white p-3.5 sm:p-4 rounded-lg border border-claude-terracottaBorder flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+            <div>
+              <div class="text-xs font-bold text-claude-text flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-claude-terracotta"></span>
+                GEO (Generative Engine Optimization) AI 聚合平台行业第一
+              </div>
+              <div class="text-xs text-claude-textSecondary mt-1">
+                攻占 AI 推荐引擎首位：<strong>引用率 70%+</strong>，<strong>提及率 (可见度) 60%+</strong>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
+              <span class="bg-claude-tagBg px-2 py-0.5 rounded text-claude-tagText border border-claude-border">核心词: API中转站 / 聚合平台</span>
+              <span class="bg-claude-tagBg px-2 py-0.5 rounded text-claude-tagText border border-claude-border">泛词: 编程工具 / 模型词</span>
+            </div>
+          </div>
+
+          <!-- 3大AI工具落地矩阵 -->
+          <div>
+            <div class="text-xs font-semibold text-claude-textSecondary mb-2 flex items-center gap-1">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+              推动 3 大自研 AI 增长工具落地流水线
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="p-3.5 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
+                <div class="text-xs font-bold text-claude-text mb-1 flex items-center justify-between">
+                  <span>1. 多平台批量稿件系统</span>
+                  <span class="text-claude-terracotta font-mono font-bold">180+篇/日</span>
+                </div>
+                <p class="text-[11px] text-claude-textSecondary leading-relaxed">
+                  大模型驱动的自动化内容生成与跨平台分发系统，高频覆盖长尾流量。
+                </p>
+              </div>
+
+              <div class="p-3.5 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
+                <div class="text-xs font-bold text-claude-text mb-1 flex items-center justify-between">
+                  <span>2. 官网后台博客矩阵</span>
+                  <span class="text-claude-terracotta font-mono font-bold">300+篇/日</span>
+                </div>
+                <p class="text-[11px] text-claude-textSecondary leading-relaxed">
+                  自动化 SEO 内容工程，实现公域向主站高效引流 <strong>UV 2000+/周</strong>。
+                </p>
+              </div>
+
+              <div class="p-3.5 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
+                <div class="text-xs font-bold text-claude-text mb-1 flex items-center justify-between">
+                  <span>3. 邮件营销获客工具</span>
+                  <span class="text-claude-terracotta font-mono font-bold">800封/日</span>
+                </div>
+                <p class="text-[11px] text-claude-textSecondary leading-relaxed">
+                  定向抓取 GitHub 精准开发者与企业用户，自动化轮转发送，直达目标客群。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 模块二：营销推广（文章+视频号） -->
+      <div class="mb-7">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-1.5 h-4 bg-claude-terracotta rounded-full"></span>
+          <h3 class="text-sm sm:text-base font-semibold text-claude-text">
+            二、营销推广：深度爆款推文与视频号矩阵
+          </h3>
+        </div>
+
+        <div class="bg-claude-bg/60 border border-claude-border rounded-xl p-4 sm:p-5 space-y-4">
+          <!-- 公众号推文 -->
+          <div>
+            <div class="text-xs font-semibold text-claude-textSecondary mb-2.5 flex items-center justify-between">
+              <span class="flex items-center gap-1.5">
+                <i data-lucide="book-open" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                AI 深度文章写作（公众号「nonlinear」），高热度高转化推文
+              </span>
+              <span class="text-xs text-claude-terracotta font-medium bg-claude-terracottaLight px-2 py-0.5 rounded border border-claude-terracottaBorder">
+                获客成本行业最低 · 获充值 10万+ 大客户
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div class="p-3.5 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
+                <div>
+                  <span class="text-[10px] font-mono font-bold text-claude-terracotta bg-claude-terracottaLight px-1.5 py-0.5 rounded border border-claude-terracottaBorder inline-block mb-1">
+                    1.2万 view · 热点转化
+                  </span>
+                  <h4 class="text-xs font-bold text-claude-text">
+                    《Deepseek涨价后有更高性价比的替代吗？》
+                  </h4>
+                </div>
+                <div class="text-[11px] text-claude-textSecondary mt-2 pt-2 border-t border-claude-borderLight">
+                  精准击中开发者成本痛点，直接带来单笔充值 10万+ 大客户。
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
+                <div>
+                  <span class="text-[10px] font-mono font-bold text-claude-textSecondary bg-claude-tagBg px-1.5 py-0.5 rounded border border-claude-border inline-block mb-1">
+                    行业认可 · 万字长文
+                  </span>
+                  <h4 class="text-xs font-bold text-claude-text">
+                    《硬核万字评测 | 最全AI生图横评选型，看这一篇就够了》
+                  </h4>
+                </div>
+                <div class="text-[11px] text-claude-textSecondary mt-2 pt-2 border-t border-claude-borderLight">
+                  深度技术测评树立行业专业背书，引发开发者社群高频转发。
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
+                <div>
+                  <span class="text-[10px] font-mono font-bold text-claude-textSecondary bg-claude-tagBg px-1.5 py-0.5 rounded border border-claude-border inline-block mb-1">
+                    企业软文 · 场景痛点
+                  </span>
+                  <h4 class="text-xs font-bold text-claude-text">
+                    《在补贴Deepseek之前，我们说说在使用过程中的真实坑》
+                  </h4>
+                </div>
+                <div class="text-[11px] text-claude-textSecondary mt-2 pt-2 border-t border-claude-borderLight">
+                  真实场景切入引发企业决策层共鸣，高效沉淀高意向B端线索。
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
+                <div>
+                  <span class="text-[10px] font-mono font-bold text-claude-textSecondary bg-claude-tagBg px-1.5 py-0.5 rounded border border-claude-border inline-block mb-1">
+                    深度技术文 · 性能成本
+                  </span>
+                  <h4 class="text-xs font-bold text-claude-text">
+                    《开“思考模式”消耗多10倍，性能只涨1%？》
+                  </h4>
+                </div>
+                <div class="text-[11px] text-claude-textSecondary mt-2 pt-2 border-t border-claude-borderLight">
+                  严谨数据实测与逻辑论证，破除行业认知盲区，强化品牌权威。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 视频号推广 -->
+          <div class="pt-2 border-t border-claude-border">
+            <div class="text-xs font-semibold text-claude-textSecondary mb-2 flex items-center gap-1">
+              <i data-lucide="video" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+              企业视频号矩阵稳健引流
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <div class="flex items-center justify-between p-3 rounded-lg bg-white border border-claude-border">
+                <span class="font-medium text-claude-text">非线智能API企业应用</span>
+                <span class="text-claude-textSecondary">2000+ 粉丝 · <strong>日均播放 6000+</strong></span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded-lg bg-white border border-claude-border">
+                <span class="font-medium text-claude-text">非线智能API行业应用</span>
+                <span class="text-claude-textSecondary">3000+ 粉丝 · <strong>日均播放 5000+</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 模块三：企业客户 (ToB) -->
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-1.5 h-4 bg-claude-terracotta rounded-full"></span>
+          <h3 class="text-sm sm:text-base font-semibold text-claude-text">
+            三、企业客户：全流程闭环与 50+ 标杆客户落地
+          </h3>
+        </div>
+
+        <div class="bg-claude-bg/60 border border-claude-border rounded-xl p-4 sm:p-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 border-b border-claude-border gap-2">
+            <div>
+              <div class="text-xs sm:text-sm font-bold text-claude-text">全权负责企业客户跟进全流程</div>
+              <p class="text-xs text-claude-textSecondary mt-0.5">
+                周均处理 <strong>20+</strong> 家企业客户，闭环完成「种草、签约、测试、合同、售后」
+              </p>
+            </div>
+            <div class="inline-flex items-center gap-1.5 text-xs font-medium text-claude-terracotta bg-claude-terracottaLight px-3 py-1 rounded-lg border border-claude-terracottaBorder self-start sm:self-auto">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              成交客户 50+ 家
+            </div>
+          </div>
+
+          <!-- 标杆客户名录 -->
+          <div class="mt-3.5">
+            <div class="text-[11px] text-claude-textMuted uppercase tracking-wider mb-2">服务与成交知名企业及高校包括：</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1.5 bg-white text-claude-text px-3 py-1.5 rounded-lg text-xs font-medium border border-claude-border shadow-sm">
+                <i data-lucide="building-2" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                富士康 (Foxconn)
+              </span>
+              <span class="inline-flex items-center gap-1.5 bg-white text-claude-text px-3 py-1.5 rounded-lg text-xs font-medium border border-claude-border shadow-sm">
+                <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                厦门大学
+              </span>
+              <span class="inline-flex items-center gap-1.5 bg-white text-claude-text px-3 py-1.5 rounded-lg text-xs font-medium border border-claude-border shadow-sm">
+                <i data-lucide="landmark" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                兴业银行
+              </span>
+              <span class="inline-flex items-center gap-1.5 bg-white text-claude-text px-3 py-1.5 rounded-lg text-xs font-medium border border-claude-border shadow-sm">
+                <i data-lucide="globe" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                网易 (NetEase)
+              </span>
+              <span class="inline-flex items-center gap-1 bg-claude-tagBg text-claude-textMuted px-2.5 py-1.5 rounded-lg text-xs">
+                +46 家行业代表性企事业单位
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 3. 历年核心操盘历程与经典战役 (完整呈现，绝无遗漏) -->
+    <!-- ============================================== -->
+    <section class="my-10 pt-2">
+      <div class="flex items-baseline justify-between border-b border-claude-border pb-3 mb-6">
+        <div>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-claude-terracotta block mb-0.5">TRACK RECORD · 2015 - 2026</span>
+          <h2 class="claude-heading text-xl sm:text-2xl font-semibold text-claude-text">
+            历年核心操盘历程与经典战役
+          </h2>
+        </div>
+        <span class="text-xs font-medium text-claude-textMuted">10年全域营销与增长深耕</span>
+      </div>
+
+      <div class="space-y-6">
+
+        <!-- 1. 奥特莱斯企业集团 (2025.4-2026.3) -->
+        <div class="timeline-item border-l-2 border-claude-terracotta pl-4 sm:pl-5 relative">
+          <div class="absolute -left-[6px] top-1.5 w-2.5 h-2.5 rounded-full bg-claude-terracotta"></div>
+          
+          <div class="flex flex-wrap items-center justify-between gap-1 mb-2">
+            <h3 class="text-sm sm:text-base font-bold text-claude-text flex items-center gap-2">
+              <span>奥特莱斯企业集团</span>
+              <span class="text-claude-textMuted font-normal">|</span>
+              <span class="text-claude-terracotta font-medium">运营 / 营销总监</span>
+            </h3>
+            <span class="text-xs font-mono text-claude-textMuted bg-claude-tagBg px-2 py-0.5 rounded border border-claude-border">2025.04 — 2026.03</span>
+          </div>
+
+          <div class="space-y-2.5 text-xs text-claude-textSecondary leading-relaxed">
+            <!-- 丝路稳定币 -->
+            <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border">
+              <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+                <i data-lucide="coins" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                丝路奥莱稳定币（香港稳定币）项目策划、路演：
+              </div>
+              <ul class="list-disc list-inside space-y-1 pl-1">
+                <li>奥莱与大唐西市合资，与<strong>光大、国家开行、清华大学</strong>联合申请“丝路稳定币”（创新千亿金融项目）。负责<strong>项目方案总策划</strong>，进行数十场政府、投资人、合作方路演，最终设立 <strong>SPV（2亿）</strong>及提交申请方案，待国家批复。</li>
+                <li>策划申请香港虚拟资产<strong>“奥莱通”（已落地）</strong>、策划虚拟资产交易平台、奥莱 RWA 等新金融产品。</li>
+                <li>个人币链（Web3.0 + 虚拟资产交易方向）公众号粉丝从 0 到 3000。</li>
+              </ul>
+            </div>
+
+            <!-- AI创新业务营销 -->
+            <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border">
+              <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                AI 创新业务营销与赋能：
+              </div>
+              <ul class="list-disc list-inside space-y-1 pl-1">
+                <li><strong>AI 视觉降本增效：</strong>策划“AI 服装设计工具”，促成与深圳罗铮品牌合作，利用 AI 批量产出 <strong>1000+ 电商商详页</strong>，重构传统拍摄与设计成本。主导策划并制作微信小程序端<strong>“AI 换装工具”</strong>，为实体服饰电商提供低成本虚拟试穿增值体验。</li>
+                <li><strong>AI 培训：</strong>东方逸尚（设计师学院）AI 设计赋能课程培训、广发银行管理与增效（OpenCLAW）应用培训。</li>
+              </ul>
+            </div>
+
+            <!-- AI产品独立研发与变现 -->
+            <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border">
+              <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+                <i data-lucide="terminal" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                AI 产品独立研发与变现（超级个体闭环）：
+              </div>
+              <ul class="list-disc list-inside space-y-1 pl-1">
+                <li><strong>自学逆向与 AI 辅码：</strong>突破非技术背景限制，利用 AI 辅助编写《三界西游》《水浒Q传》纯文字脱机版工具、网络封包工具（32/64位）及可视化脚本。</li>
+                <li><strong>独立发行与销售：</strong>一人包揽产品研发、社群运营与全网销售，通过电商及社群等矩阵精准分发，累计售出 <strong>1342 份</strong>，实现纯利变现。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 祈优缔科技 / 进才企业管理 (2022.7-2025.4) -->
+        <div class="timeline-item border-l-2 border-claude-border pl-4 sm:pl-5 relative">
+          <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-claude-textSecondary"></div>
+
+          <div class="flex flex-wrap items-center justify-between gap-1 mb-2">
+            <h3 class="text-sm sm:text-base font-bold text-claude-text flex items-center gap-2">
+              <span>祈优缔科技 / 进才企业管理</span>
+              <span class="text-claude-textMuted font-normal">|</span>
+              <span class="text-claude-textSecondary font-medium">增长 / 营销负责人（创业）</span>
+            </h3>
+            <span class="text-xs font-mono text-claude-textMuted bg-claude-tagBg px-2 py-0.5 rounded border border-claude-border">2022.07 — 2025.04</span>
+          </div>
+
+          <div class="space-y-2.5 text-xs text-claude-textSecondary leading-relaxed">
+            <!-- SaaS 管理 -->
+            <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border">
+              <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+                <i data-lucide="server" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                SaaS 管理，实现 1 万家企业服务增长：
+              </div>
+              <p>
+                首创招聘服务电商化模式（SaaS 后台产品接入），打造标准化服务 SKU，累计服务包括<strong>海尔、美的、平安等 10040 家企业</strong>，建立「搜索广告 + 行业解决方案」获客模型，<strong>营销 ROI 达 10+</strong>，项目盈利达<strong>百万级纯利</strong>。
+              </p>
+            </div>
+
+            <!-- AI 赋能新媒体增长矩阵 -->
+            <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border">
+              <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+                <i data-lucide="play-circle" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                AI 赋能新媒体增长矩阵：
+              </div>
+              <ul class="list-disc list-inside space-y-1 pl-1">
+                <li><strong>内容自动化流水线：</strong>创新“AI + 脚本化”生产模式，实现<strong>单日 100+ 视频</strong>产能。研发新号冷启动模型，创下 <strong>3 小时涨粉 4000+</strong> 纪录。独立编导并全流程制作 <strong>AI 动画动漫宣传片</strong>。</li>
+                <li><strong>IP 孵化与转化：</strong>从 0 到 20 万粉丝孵化《夏迪心理学》IP，获 <strong>5000 万播放量</strong>。打通转化链路，实现书单销售 2 万+，心理咨询分佣 3.2 万。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 京东 · 京喜 (2020.10-2022.6) -->
+        <div class="timeline-item border-l-2 border-claude-border pl-4 sm:pl-5 relative">
+          <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-claude-textSecondary"></div>
+
+          <div class="flex flex-wrap items-center justify-between gap-1 mb-2">
+            <h3 class="text-sm sm:text-base font-bold text-claude-text flex items-center gap-2">
+              <span>京东 · 京喜 (P7)</span>
+              <span class="text-claude-textMuted font-normal">|</span>
+              <span class="text-claude-textSecondary font-medium">营销增长经理</span>
+            </h3>
+            <span class="text-xs font-mono text-claude-textMuted bg-claude-tagBg px-2 py-0.5 rounded border border-claude-border">2020.10 — 2022.06</span>
+          </div>
+
+          <div class="space-y-2.5 text-xs text-claude-textSecondary leading-relaxed">
+            <!-- 平台级大促增长操盘 -->
+            <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border">
+              <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+                <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                平台级大促增长操盘：
+              </div>
+              <ul class="list-disc list-inside space-y-1 pl-1">
+                <li>负责平台级活动方案策划，涵盖货品/流量/品牌/用增/B端策略。操盘统筹管理中秋、双11、年货节等全年 <strong>16 个整合营销项目</strong>，活动拉升千万级营销场景订单增长，贡献<strong>超 10 亿级 GMV</strong>。</li>
+                <li>建立京喜到京东的 B 端资源置换体系，通过补贴杠杆<strong>撬动品牌方投入 2000 万+，ROI 达 11</strong>。</li>
+                <li>负责社区团购（短链）营销活动统筹与中心化管理，建立 <strong>1V1 营销 BP 对接</strong>机制，提升中台把控力与营销效率。</li>
+              </ul>
+            </div>
+
+            <!-- 热点营销-低成本非线性增长 -->
+            <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border">
+              <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+                <i data-lucide="zap" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+                热点营销 - 低成本非线性增长：
+              </div>
+              <p>
+                <strong>政府资源开拓：</strong>藉中秋向深圳政府提案，落地<strong>《京喜拼拼给深圳人加道菜》快闪店</strong>营销事件。设计「社交货币裂变」机制，获<strong>电视台及小红书首屏推荐</strong>，千万级曝光下带动区域订单量<strong>增长 213%</strong>。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 唯品会 社群运营经理 (2020.1-2020.10) -->
+        <div class="timeline-item border-l-2 border-claude-border pl-4 sm:pl-5 relative">
+          <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-claude-textSecondary"></div>
+
+          <div class="flex flex-wrap items-center justify-between gap-1 mb-2">
+            <h3 class="text-sm sm:text-base font-bold text-claude-text flex items-center gap-2">
+              <span>唯品会 (V6)</span>
+              <span class="text-claude-textMuted font-normal">|</span>
+              <span class="text-claude-textSecondary font-medium">社群运营经理</span>
+            </h3>
+            <span class="text-xs font-mono text-claude-textMuted bg-claude-tagBg px-2 py-0.5 rounded border border-claude-border">2020.01 — 2020.10</span>
+          </div>
+
+          <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border text-xs text-claude-textSecondary leading-relaxed">
+            <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+              社群增长 0 到百万级规模体系搭建：
+            </div>
+            <ul class="list-disc list-inside space-y-1 pl-1">
+              <li>负责官方社群用户增长，设计<strong>小组赛马模型</strong>（A组/B组/C组赛马机制）。</li>
+              <li>重构“进群率 - 参与率 - 裂变系数 - 转化率”模型，设计低成本高溢价钩子组合 + 游戏式体验，在保证 30% 参与率基础上，使<strong>裂变系数从行业平均 3.2 提升至 5.8</strong>，人均裂变成本 <strong>≤ 2 元</strong>（远低于同期行业 5-8 元水平）。</li>
+              <li>使用<strong>“娱乐化剧本”</strong>实现老群激活，使整体社群生命周期从平均 4 周延长至 <strong>6 周</strong>。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 5. 唯品会 内容营销经理 (2015.11-2019.12) -->
+        <div class="timeline-item border-l-2 border-claude-border pl-4 sm:pl-5 relative">
+          <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-claude-textSecondary"></div>
+
+          <div class="flex flex-wrap items-center justify-between gap-1 mb-2">
+            <h3 class="text-sm sm:text-base font-bold text-claude-text flex items-center gap-2">
+              <span>唯品会 (V5)</span>
+              <span class="text-claude-textMuted font-normal">|</span>
+              <span class="text-claude-textSecondary font-medium">内容营销经理</span>
+            </h3>
+            <span class="text-xs font-mono text-claude-textMuted bg-claude-tagBg px-2 py-0.5 rounded border border-claude-border">2015.11 — 2019.12</span>
+          </div>
+
+          <div class="p-3.5 bg-claude-bg rounded-lg border border-claude-border text-xs text-claude-textSecondary leading-relaxed">
+            <div class="font-bold text-claude-text mb-1 flex items-center gap-1.5">
+              <i data-lucide="award" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+              品类营销 & 品牌营销新客增长与行业大奖：
+            </div>
+            <ul class="list-disc list-inside space-y-1 pl-1">
+              <li><strong>品类拉新：</strong>负责内衣、男装品类活动策划与资源统筹。利用内衣分层级品牌拉新策略，拉动<strong>品类新客增长超 80%</strong>；利用男装爆款策略开拓男性用户，实现19年男装品类<strong>新客同比超 50% 增长</strong>。</li>
+              <li><strong>矩阵投放：</strong>主导抖音/快手 CPT 达人采买 + 信息流组合投放，实现全年 <strong>10 万新客增长</strong>（获客成本仅为行业 1/3）。</li>
+              <li><strong>社会化营销破圈：</strong>主导年货节社会化营销，通过分圈层传播策略达成微信 <strong>EarnMedia 130+ 篇</strong>，微信热度压制天猫 15 天。</li>
+              <li><strong>行业权威认证：</strong>荣获<strong>今日头条 2018 年度数字营销银奖</strong>与<strong>金投赏银奖</strong>。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 4. 技能矩阵与工具链 (Claude Toolset) -->
+    <!-- ============================================== -->
+    <section class="my-10 pt-2">
+      <div class="flex items-baseline justify-between border-b border-claude-border pb-3 mb-6">
+        <div>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-claude-terracotta block mb-0.5">CAPABILITIES</span>
+          <h2 class="claude-heading text-xl sm:text-2xl font-semibold text-claude-text">
+            复合技能与全栈工具矩阵
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <div class="p-4 rounded-xl border border-claude-border bg-claude-bg">
+          <div class="font-bold text-claude-text mb-2.5 flex items-center gap-1.5">
+            <i data-lucide="target" class="w-4 h-4 text-claude-terracotta"></i>
+            增长与营销方法论
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">GEO (AI推荐引擎优化)</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">深度爆款内容创作与种草</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">高裂变社群增长 (k=5.8)</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">ToB 大客户销售漏斗与交付</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">10亿级平台大促统筹操盘</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">创新金融项目方案总策划</span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-claude-border bg-claude-bg">
+          <div class="font-bold text-claude-text mb-2.5 flex items-center gap-1.5">
+            <i data-lucide="code" class="w-4 h-4 text-claude-terracotta"></i>
+            AI 落地工具与技术栈
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">OpenCLAW / Nanobanna</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">Gemini / Flow / Tapnow</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">自学逆向工程 / 自动化脚本</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">AI 批量图文与视频流水线</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">GitHub 爬虫与自动化邮件营销</span>
+            <span class="bg-white border border-claude-border px-2.5 py-1 rounded text-claude-textSecondary">微信小程序 (AI换装工具)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 5. 极简名片与联系通道 (Claude Signature Card) -->
+    <!-- ============================================== -->
+    <section class="mt-12 pt-8 border-t border-claude-border">
+      <div class="bg-claude-bg border border-claude-border rounded-2xl p-6 sm:p-8 text-center relative shadow-claude-card">
+        <div class="w-14 h-14 rounded-xl bg-claude-terracotta text-white text-2xl font-serif font-bold flex items-center justify-center mx-auto mb-3 shadow-claude-button">
+          林
+        </div>
+        <h3 class="claude-heading text-xl sm:text-2xl font-semibold text-claude-text">
+          期待探讨增长机会与业务合作
+        </h3>
+        <p class="text-xs sm:text-sm text-claude-textSecondary mt-1 max-w-md mx-auto">
+          全职机会 · 增长顾问 · AI商业化落地咨询 · 深圳 / 广州
+        </p>
+
+        <!-- 极简联系方式按钮组 -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3 no-print">
+          <button onclick="exportToPDF()" class="flex items-center gap-2 bg-claude-terracotta hover:bg-claude-terracottaHover text-white font-medium px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-claude-button">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>保存为 PDF</span>
+          </button>
+          <button onclick="copyContact('ljy45678', '微信号已复制: ljy45678')" class="flex items-center gap-2 bg-white hover:bg-claude-tagBg text-claude-text font-medium px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-claude-border transition-all shadow-sm">
+            <i data-lucide="message-square" class="w-4 h-4 text-claude-terracotta"></i>
+            <span>复制微信: ljy45678</span>
+          </button>
+          <a href="tel:15521176794" class="flex items-center gap-2 bg-white hover:bg-claude-tagBg text-claude-text font-medium px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-claude-border transition-all shadow-sm">
+            <i data-lucide="phone-call" class="w-4 h-4 text-claude-terracotta"></i>
+            <span>电话: 15521176794</span>
+          </a>
+          <button onclick="copyContact('381271558@qq.com', '邮箱已复制: 381271558@qq.com')" class="flex items-center gap-2 bg-white hover:bg-claude-tagBg text-claude-text font-medium px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-claude-border transition-all shadow-sm">
+            <i data-lucide="mail" class="w-4 h-4 text-claude-terracotta"></i>
+            <span>邮箱: 381271558@qq.com</span>
+          </button>
+        </div>
+
+        <div class="text-[11px] text-claude-textMuted mt-4">
+          林俊颖 (Buddy) · 华南师范大学（传播学） · 10年互联网营销与AI商业化操盘手
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 提示弹窗 (Toast) -->
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-claude-text text-claude-bg text-xs font-medium px-4 py-2.5 rounded-xl shadow-xl opacity-0 pointer-events-none transition-all duration-200 z-50 flex items-center gap-2 border border-claude-border no-print">
+    <i data-lucide="check" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+    <span id="toast-text">已复制</span>
+  </div>
+
+  <script>
+    // 初始化 Lucide 图标
+    lucide.createIcons();
+
+    // 导出 / 保存为 PDF
+    function exportToPDF() {
+      showToast('正在调起打印生成 PDF...');
+      setTimeout(() => {
+        window.print();
+      }, 300);
+    }
+
+    // 复制功能
+    function copyContact(text, msg) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(msg || '复制成功！');
+      }).catch(err => {
+        showToast('复制: ' + text);
+      });
+    }
+
+    // 提示条展示
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      toastText.innerText = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2200);
+    }
+  </script>
+</body>
+</html>
