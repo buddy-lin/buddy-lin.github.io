@@ -191,6 +191,11 @@
         page-break-before: auto !important;
         break-before: auto !important;
       }
+      /* 强制整块内容从新的一页开始（避免标题孤悬页尾、内容跳页） */
+      .print-break-page {
+        page-break-before: always !important;
+        break-before: page !important;
+      }
       /* 只有单个内容块防分页，不做整格强avoid，避免把大段内容整体推到下一页 */
       .timeline-item, .bg-white, .bg-claude-bg, .bg-claude-bg\/60, .bg-claude-bg\/50,
       .print-avoid-break, .proof-thumb {
@@ -310,7 +315,7 @@
     <!-- ============================================== -->
     <!-- 机构导航条 (吸顶置顶：下滑页面时固定顶部，锚点高亮) -->
     <!-- ============================================== -->
-    <nav class="no-print sticky top-0 z-40 -mx-4 sm:-mx-8 md:-mx-12 px-4 sm:px-8 md:px-12 py-2.5 sm:py-3 bg-claude-card/95 backdrop-blur-md border-b border-claude-border shadow-sm flex flex-wrap items-center gap-0.5 sm:gap-1 text-xs sm:text-sm mb-5 sm:mb-6">
+    <nav class="sticky top-0 z-40 -mx-4 sm:-mx-8 md:-mx-12 px-4 sm:px-8 md:px-12 py-2.5 sm:py-3 bg-claude-card/95 backdrop-blur-md border-b border-claude-border shadow-sm flex flex-wrap items-center gap-0.5 sm:gap-1 text-xs sm:text-sm mb-5 sm:mb-6">
       <a href="#nonelinear" data-target="nonelinear" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium">非线智能</a>
       <a href="#jd" data-target="jd" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium">京东</a>
       <a href="#vipshop" data-target="vipshop" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium">唯品会</a>
@@ -543,7 +548,7 @@
       </div>
 
       <!-- 模块二：营销推广（推文+视频号） -->
-      <div class="mb-6 sm:mb-7">
+      <div class="mb-6 sm:mb-7 print-break-page">
         <div class="flex items-center justify-between mb-2.5">
           <div class="flex items-center gap-1.5 sm:gap-2">
             <span class="w-1.5 h-3.5 sm:h-4 bg-claude-terracotta rounded-full"></span>
@@ -896,7 +901,7 @@
     <!-- ============================================== -->
     <!-- 4. 专业技能矩阵 (精炼标签) -->
     <!-- ============================================== -->
-    <section class="my-8 sm:my-10 pt-1">
+    <section class="my-8 sm:my-10 pt-1 print-break-page">
       <div class="border-b border-claude-border pb-3 mb-5">
         <span class="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-claude-terracotta block">EXPERTISE & CAPABILITIES</span>
         <h2 class="claude-heading text-lg sm:text-2xl font-semibold text-claude-text">
