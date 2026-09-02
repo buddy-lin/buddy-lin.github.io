@@ -96,19 +96,21 @@
       break-inside: avoid;
     }
 
-    /* 锚点跳转补偿 sticky 导航栏高度 */
+    /* 锚点跳转补偿置顶导航栏高度 */
     #nonelinear, #jd, #vipshop, #outlet, #qiyoudi {
-      scroll-margin-top: 16px;
+      scroll-margin-top: 64px;
     }
 
-    /* 机构导航当前板块高亮（彩色胶囊上的选中态） */
+    /* 机构导航当前板块高亮（简洁文字选中态：红字 + 淡底 + 底部红条） */
     .nav-link {
+      border-bottom: 2px solid transparent;
       transition: all 0.2s ease;
     }
     .nav-link.active {
+      color: #D97757;
+      background-color: #FAF2EE;
+      border-bottom-color: #D97757;
       font-weight: 700;
-      box-shadow: 0 0 0 2px currentColor inset;
-      transform: translateY(-1px);
     }
 
     /* 履历排版清晰化：提高行距与段落间距 */
@@ -252,17 +254,6 @@
           <span class="text-claude-border">·</span>
           <span>求职意向：<strong class="text-claude-terracotta font-semibold">营销专家</strong></span>
         </p>
-        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
-          <!-- 机构导航：锚点跳转 + 滚动高亮 -->
-          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            <span class="text-xs text-claude-textMuted font-medium mr-0.5">服务过的企业：</span>
-            <a href="#nonelinear" data-target="nonelinear" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FAF2EE] text-[#D97757] border border-[#F0D4CA] shadow-xs transition-colors">非线智能</a>
-            <a href="#jd" data-target="jd" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FEECEC] text-[#D32F2F] border border-[#FFCDD2] shadow-xs transition-colors">京东</a>
-            <a href="#vipshop" data-target="vipshop" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#F9F0FF] text-[#8E24AA] border border-[#E1BEE7] shadow-xs transition-colors">唯品会</a>
-            <a href="#outlet" data-target="outlet" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#FFF8E1] text-[#B78103] border border-[#FFE082] shadow-xs transition-colors">奥特莱斯</a>
-            <a href="#qiyoudi" data-target="qiyoudi" class="nav-link inline-flex items-center gap-1 text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-md bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9] shadow-xs transition-colors">祈优缔科技</a>
-          </div>
-        </div>
       </div>
 
       <!-- 快捷联系栏 (一行紧凑) -->
@@ -280,6 +271,17 @@
         </div>
       </div>
     </section>
+
+    <!-- ============================================== -->
+    <!-- 机构导航条 (吸顶置顶：下滑页面时固定顶部，锚点高亮) -->
+    <!-- ============================================== -->
+    <nav class="no-print sticky top-0 z-40 -mx-4 sm:-mx-8 md:-mx-12 px-4 sm:px-8 md:px-12 py-2.5 sm:py-3 bg-claude-card/95 backdrop-blur-md border-b border-claude-border shadow-sm flex flex-wrap items-center gap-0.5 sm:gap-1 text-xs sm:text-sm mb-5 sm:mb-6">
+      <a href="#nonelinear" data-target="nonelinear" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium">非线智能</a>
+      <a href="#jd" data-target="jd" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium">京东</a>
+      <a href="#vipshop" data-target="vipshop" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium">唯品会</a>
+      <a href="#outlet" data-target="outlet" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium">奥特莱斯</a>
+      <a href="#qiyoudi" data-target="qiyoudi" class="nav-link px-2 sm:px-3 py-1.5 rounded-lg text-claude-textSecondary hover:text-claude-terracotta hover:bg-claude-terracottaLight transition-colors font-medium">祈优缔科技</a>
+    </nav>
 
     <!-- ============================================== -->
     <!-- 1. 核心战绩看板 (Key Metrics) -->
@@ -1513,7 +1515,7 @@
         .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
 
       function onScroll() {
-        const headerOffset = 12; // 卡片顶部无 sticky，用较小偏移让第一个板块更早高亮
+        const headerOffset = 52; // 吸顶导航条高度 + 少量缓冲，命中锚点区域即高亮
         let currentId = null;
         for (const sec of sections) {
           if (sec.getBoundingClientRect().top <= headerOffset) {
