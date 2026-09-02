@@ -388,68 +388,65 @@
               <span class="text-[10px] text-claude-textMuted">点击直接看后台/演示</span>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+            <div class="grid grid-cols-3 gap-1.5 sm:gap-3">
               
               <!-- 工具 1 -->
-              <div class="p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
+              <div class="p-1.5 sm:p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
                 <div>
-                  <div class="text-xs font-bold text-claude-text mb-1 flex items-center justify-between">
-                    <span>1. 多平台批量稿件系统</span>
-                    <span class="text-claude-terracotta font-mono font-bold">180+篇/日</span>
+                  <div class="text-[10px] sm:text-xs font-bold text-claude-text mb-0.5 sm:mb-1">
+                    <span class="block sm:hidden">批量稿件系统</span>
+                    <span class="hidden sm:block">1. 多平台批量稿件系统</span>
                   </div>
-                  <p class="text-[11px] text-claude-textSecondary leading-relaxed">
+                  <span class="text-[10px] sm:text-xs text-claude-terracotta font-mono font-bold block mb-0.5">180+篇/日</span>
+                  <p class="text-[9px] sm:text-[11px] text-claude-textSecondary leading-snug sm:leading-relaxed hidden sm:block">
                     自动化生成与跨平台分发，高效覆盖长尾流量。
                   </p>
                 </div>
-                
-                <div class="mt-2.5 pt-2 border-t border-claude-borderLight flex items-center justify-between">
-                  <button onclick="openVideoLightbox('./assets/video_tool_intro.mp4', '多平台批量发文工具操作演示')" class="inline-flex items-center gap-1 text-[11px] text-claude-terracotta hover:underline font-medium">
-                    <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
-                    <span>观看演示视频</span>
+                <div class="mt-1 sm:mt-2.5 pt-1 sm:pt-2 border-t border-claude-borderLight">
+                  <button onclick="openVideoLightbox('./assets/video_tool_intro.mp4', '多平台批量发文工具操作演示')" class="inline-flex items-center gap-0.5 sm:gap-1 text-[9px] sm:text-[11px] text-claude-terracotta hover:underline font-medium">
+                    <i data-lucide="play-circle" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+                    <span>演示视频</span>
                   </button>
-                  <span class="text-[10px] text-claude-textMuted">MP4实操</span>
                 </div>
               </div>
 
               <!-- 工具 2 (博客后台) -->
-              <div class="p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
+              <div class="p-1.5 sm:p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
                 <div>
-                  <div class="text-xs font-bold text-claude-text mb-1 flex items-center justify-between">
-                    <span>2. 官网后台博客矩阵</span>
-                    <span class="text-claude-terracotta font-mono font-bold">300+篇/日</span>
+                  <div class="text-[10px] sm:text-xs font-bold text-claude-text mb-0.5 sm:mb-1">
+                    <span class="block sm:hidden">博客矩阵</span>
+                    <span class="hidden sm:block">2. 官网后台博客矩阵</span>
                   </div>
-                  <p class="text-[11px] text-claude-textSecondary leading-relaxed">
+                  <span class="text-[10px] sm:text-xs text-claude-terracotta font-mono font-bold block mb-0.5">300+篇/日</span>
+                  <p class="text-[9px] sm:text-[11px] text-claude-textSecondary leading-snug sm:leading-relaxed hidden sm:block">
                     自动化 SEO 内容工程，引流 <strong>UV 2000+/周</strong>。
                   </p>
                 </div>
-
-                <div class="mt-2.5 pt-2 border-t border-claude-borderLight flex items-center justify-between">
-                  <button onclick="openLightboxGroup(['./assets/工具BLOG后台_批量文章自动生成1.png', './assets/工具BLOG后台_批量文章自动生成2.png', './assets/工具BLOG后台_批量文章后台发布.png', './assets/工具BLOG后台_海量文章获取公域流量.png'], ['批量文章自动生成 (1)', '批量文章自动生成 (2)', '批量文章后台发布', '海量文章获取公域流量'], 0)" class="inline-flex items-center gap-1 text-[11px] text-claude-terracotta hover:underline font-medium">
-                    <i data-lucide="image" class="w-3.5 h-3.5"></i>
-                    <span>查看后台截图 (4张)</span>
+                <div class="mt-1 sm:mt-2.5 pt-1 sm:pt-2 border-t border-claude-borderLight">
+                  <button onclick="openLightboxGroup(['./assets/工具BLOG后台_批量文章自动生成1.png', './assets/工具BLOG后台_批量文章自动生成2.png', './assets/工具BLOG后台_批量文章后台发布.png', './assets/工具BLOG后台_海量文章获取公域流量.png'], ['批量文章自动生成 (1)', '批量文章自动生成 (2)', '批量文章后台发布', '海量文章获取公域流量'], 0)" class="inline-flex items-center gap-0.5 sm:gap-1 text-[9px] sm:text-[11px] text-claude-terracotta hover:underline font-medium">
+                    <i data-lucide="image" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+                    <span>截图(4张)</span>
                   </button>
-                  <span class="text-[10px] text-claude-textMuted">SEO矩阵</span>
                 </div>
               </div>
 
               <!-- 工具 3 (邮件营销后台) -->
-              <div class="p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
+              <div class="p-1.5 sm:p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all flex flex-col justify-between">
                 <div>
-                  <div class="text-xs font-bold text-claude-text mb-1 flex items-center justify-between">
-                    <span>3. 邮件营销获客工具</span>
-                    <span class="text-claude-terracotta font-mono font-bold">800封/日</span>
+                  <div class="text-[10px] sm:text-xs font-bold text-claude-text mb-0.5 sm:mb-1">
+                    <span class="block sm:hidden">邮件获客</span>
+                    <span class="hidden sm:block">3. 邮件营销获客工具</span>
                   </div>
-                  <p class="text-[11px] text-claude-textSecondary leading-relaxed">
+                  <span class="text-[10px] sm:text-xs text-claude-terracotta font-mono font-bold block mb-0.5">800封/日</span>
+                  <p class="text-[9px] sm:text-[11px] text-claude-textSecondary leading-snug sm:leading-relaxed hidden sm:block">
                     抓取 GitHub 开发者，自动化轮批发信直达客户。
                   </p>
                 </div>
-
-                <div class="mt-2.5 pt-2 border-t border-claude-borderLight flex items-center justify-between">
-                  <button onclick="openLightboxGroup(['./assets/email_backend_records.png', './assets/email_backend_contacts.png', './assets/email_backend_templates.png'], ['邮件营销后台：发送记录监控', '邮件营销后台：精准联系人库', '邮件营销后台：多模板发信配置'], 0)" class="inline-flex items-center gap-1 text-[11px] text-claude-terracotta hover:underline font-medium">
-                    <i data-lucide="image" class="w-3.5 h-3.5"></i>
-                    <span>查看后台截图 (3张)</span>
+                <div class="mt-1 sm:mt-2.5 pt-1 sm:pt-2 border-t border-claude-borderLight">
+                  <button onclick="openLightboxGroup(['./assets/email_backend_records.png', './assets/email_backend_contacts.png', './assets/email_backend_templates.png'], ['邮件营销后台：发送记录监控', '邮件营销后台：精准联系人库', '邮件营销后台：多模板发信配置'], 0)" class="inline-flex items-center gap-0.5 sm:gap-1 text-[9px] sm:text-[11px] text-claude-terracotta hover:underline font-medium">
+                    <i data-lucide="image" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+                    <span>截图(3张)</span>
                   </button>
-                  <span class="text-[10px] text-claude-textMuted">精准获客</span>
                 </div>
               </div>
 
@@ -471,70 +468,101 @@
           <span class="text-[10px] sm:text-[11px] text-claude-textMuted font-mono">公众号 & 视频号双飞轮</span>
         </div>
 
-        <!-- 第一行：公众号爆款推文 -->
-        <div class="bg-claude-bg/60 border border-claude-border rounded-xl p-3 sm:p-4">
-          <div class="flex flex-wrap items-center justify-between gap-1.5 mb-2.5">
-            <span class="flex items-center gap-1 text-xs font-semibold text-claude-textSecondary">
-              <i data-lucide="book-open" class="w-3.5 h-3.5 text-claude-terracotta"></i>
-              公众号「nonlinear」爆款推文
-            </span>
+        <!-- 金字塔内容与流量增长模型 -->
+        <div class="bg-claude-bg/60 border border-claude-border rounded-xl p-3 sm:p-5 relative overflow-hidden">
+          
+          <!-- 头部说明与动作 -->
+          <div class="flex flex-wrap items-center justify-between gap-1.5 mb-3.5">
+            <div class="flex items-center gap-1.5 text-xs font-semibold text-claude-textSecondary">
+              <i data-lucide="pyramid" class="w-3.5 h-3.5 text-claude-terracotta"></i>
+              <span>内容金字塔与双飞轮转化模型</span>
+            </div>
             <div class="flex items-center gap-1.5">
               <button onclick="openLightbox('./assets/微信推文_微信推文截图.jpg', '微信公众号爆款推文手机端排版长图')" class="text-[10px] text-claude-terracotta hover:underline font-medium inline-flex items-center gap-0.5">
-                <i data-lucide="smartphone" class="w-3 h-3"></i> 看长图
+                <i data-lucide="smartphone" class="w-3 h-3"></i> 看推文长图
               </button>
               <span class="text-[10px] text-claude-terracotta font-medium bg-claude-terracottaLight px-1.5 py-0.5 rounded border border-claude-terracottaBorder">获10万+大客</span>
             </div>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-            <a href="https://mp.weixin.qq.com/s/dpGn7ThQ2pGiYFKgScwgtw" target="_blank" rel="noopener noreferrer" class="block p-2 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
-              <span class="text-[10px] font-mono font-bold text-claude-terracotta">2.6万view</span>
-              <h4 class="text-[11px] font-bold text-claude-text mt-0.5 leading-tight line-clamp-2">Deepseek涨价后有更高性价比的替代吗？</h4>
-            </a>
-            <a href="https://mp.weixin.qq.com/s/6yHEtMs6wZvYWAukSpiD8g" target="_blank" rel="noopener noreferrer" class="block p-2 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
-              <span class="text-[10px] font-mono font-bold text-claude-textSecondary">万字长文</span>
-              <h4 class="text-[11px] font-bold text-claude-text mt-0.5 leading-tight line-clamp-2">最全AI生图横评选型，看这一篇就够了</h4>
-            </a>
-            <a href="https://mp.weixin.qq.com/s/UXbOxaM7r2f7PbFlgH1dJw" target="_blank" rel="noopener noreferrer" class="block p-2 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
-              <span class="text-[10px] font-mono font-bold text-claude-textSecondary">场景痛点</span>
-              <h4 class="text-[11px] font-bold text-claude-text mt-0.5 leading-tight line-clamp-2">使用Deepseek过程中的真实坑</h4>
-            </a>
-            <a href="https://mp.weixin.qq.com/s/gcVLuenX13945C6f3LcLKQ" target="_blank" rel="noopener noreferrer" class="block p-2 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
-              <span class="text-[10px] font-mono font-bold text-claude-textSecondary">技术实测</span>
-              <h4 class="text-[11px] font-bold text-claude-text mt-0.5 leading-tight line-clamp-2">开"思考模式"消耗多10倍，性能只涨1%？</h4>
-            </a>
-          </div>
-        </div>
 
-        <!-- 第二行：视频号矩阵 -->
-        <div class="bg-claude-bg/60 border border-claude-border rounded-xl p-3 sm:p-4 mt-2">
-          <div class="flex items-center justify-between mb-2">
-            <span class="flex items-center gap-1 text-xs font-semibold text-claude-textSecondary">
-              <i data-lucide="video" class="w-3.5 h-3.5 text-claude-terracotta"></i>
-              视频号矩阵（点击看后台）
-            </span>
-            <span class="text-[10px] text-claude-textMuted">日均总播放 1.1万+</span>
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div class="proof-thumb cursor-pointer p-2.5 rounded-lg bg-white border border-claude-border hover:border-claude-terracotta transition-all" onclick="openLightbox('./assets/视频号_矩阵号1.png', '企业视频号后台 1：非线智能API企业应用')">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-bold text-[11px] text-claude-text truncate">非线智能API企业应用</span>
-                <span class="text-[9px] bg-claude-terracottaLight text-claude-terracotta px-1 py-0.2 rounded border border-claude-terracottaBorder shrink-0 ml-1">主号</span>
+          <!-- 金字塔结构容器 -->
+          <div class="space-y-2 sm:space-y-2.5">
+
+            <!-- 金字塔 Level 1: 顶层爆款破圈 (大单品) -->
+            <div class="w-full sm:w-4/5 mx-auto">
+              <div class="text-[10px] font-semibold text-claude-terracotta mb-1 flex items-center justify-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-claude-terracotta"></span>
+                <span>TOP 1 顶层破圈爆款 · 转化大客</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-claude-terracotta"></span>
               </div>
-              <div class="flex items-center justify-between text-[11px] text-claude-textSecondary">
-                <span>2000+粉</span>
-                <span><strong>日均6000+</strong></span>
+              <a href="https://mp.weixin.qq.com/s/dpGn7ThQ2pGiYFKgScwgtw" target="_blank" rel="noopener noreferrer" class="block p-2.5 sm:p-3 rounded-lg border-2 border-claude-terracotta/40 bg-gradient-to-r from-claude-terracottaLight/50 via-white to-claude-terracottaLight/50 hover:border-claude-terracotta hover:shadow-sm transition-all text-center">
+                <div class="flex items-center justify-center gap-2 mb-1">
+                  <span class="text-[10px] sm:text-xs font-mono font-bold text-white bg-claude-terracotta px-1.5 py-0.5 rounded-full shadow-xs">2.6万阅读</span>
+                  <span class="text-[10px] text-claude-terracotta font-bold">公众号「nonlinear」标杆之作</span>
+                </div>
+                <h4 class="text-xs sm:text-sm font-bold text-claude-text leading-snug">
+                  Deepseek涨价后有更高性价比的替代吗？
+                </h4>
+                <div class="text-[10px] text-claude-textMuted mt-1">精准切中开发者与企业API降本焦虑，单篇直接转化 10万+ 采购客户</div>
+              </a>
+            </div>
+
+            <!-- 金字塔 Level 2: 中层专业纵深 (3篇高价值垂直内容) -->
+            <div class="w-full sm:w-[94%] mx-auto">
+              <div class="text-[10px] font-semibold text-claude-textSecondary mb-1 flex items-center justify-center gap-1">
+                <span class="w-1 h-1 rounded-full bg-claude-textSecondary"></span>
+                <span>MID 中层专业沉淀 · 建立行业公信力</span>
+                <span class="w-1 h-1 rounded-full bg-claude-textSecondary"></span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2">
+                <a href="https://mp.weixin.qq.com/s/6yHEtMs6wZvYWAukSpiD8g" target="_blank" rel="noopener noreferrer" class="block p-2 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
+                  <span class="text-[10px] font-mono font-bold text-claude-terracotta block mb-0.5">万字长文 / 决策指南</span>
+                  <h4 class="text-[11px] font-bold text-claude-text leading-tight line-clamp-2">最全AI生图横评选型，看这一篇就够了</h4>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/UXbOxaM7r2f7PbFlgH1dJw" target="_blank" rel="noopener noreferrer" class="block p-2 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
+                  <span class="text-[10px] font-mono font-bold text-claude-textSecondary block mb-0.5">实战踩坑 / 场景痛点</span>
+                  <h4 class="text-[11px] font-bold text-claude-text leading-tight line-clamp-2">使用Deepseek过程中的真实坑</h4>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/gcVLuenX13945C6f3LcLKQ" target="_blank" rel="noopener noreferrer" class="block p-2 rounded-lg border border-claude-border bg-white hover:border-claude-terracottaBorder transition-all">
+                  <span class="text-[10px] font-mono font-bold text-claude-textSecondary block mb-0.5">硬核测评 / 技术实测</span>
+                  <h4 class="text-[11px] font-bold text-claude-text leading-tight line-clamp-2">开"思考模式"消耗多10倍，性能只涨1%？</h4>
+                </a>
               </div>
             </div>
-            <div class="proof-thumb cursor-pointer p-2.5 rounded-lg bg-white border border-claude-border hover:border-claude-terracotta transition-all" onclick="openLightbox('./assets/视频号_矩阵号2.png', '企业视频号后台 2：非线智能API行业应用')">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-bold text-[11px] text-claude-text truncate">非线智能API行业应用</span>
-                <span class="text-[9px] bg-claude-tagBg text-claude-tagText px-1 py-0.2 rounded border border-claude-border shrink-0 ml-1">行业号</span>
+
+            <!-- 金字塔 Level 3: 底座视频号矩阵 (海量公域基底 日均1.1万+播放) -->
+            <div class="w-full mx-auto pt-1">
+              <div class="text-[10px] font-semibold text-claude-textSecondary mb-1 flex items-center justify-between px-1">
+                <span class="flex items-center gap-1">
+                  <i data-lucide="video" class="w-3 h-3 text-claude-terracotta"></i>
+                  <span>BASE 底座长尾流量放大器 · 视频号双引擎矩阵</span>
+                </span>
+                <span class="font-mono text-claude-terracotta font-bold text-[10px]">日均播放 1.1万+ (点击看后台)</span>
               </div>
-              <div class="flex items-center justify-between text-[11px] text-claude-textSecondary">
-                <span>3000+粉</span>
-                <span><strong>日均5000+</strong></span>
+              <div class="grid grid-cols-2 gap-1.5 sm:gap-2">
+                <div class="proof-thumb cursor-pointer p-2 sm:p-2.5 rounded-lg bg-white border border-claude-border hover:border-claude-terracotta transition-all" onclick="openLightbox('./assets/视频号_矩阵号1.png', '企业视频号后台 1：非线智能API企业应用')">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="font-bold text-[11px] text-claude-text truncate">非线智能API企业应用</span>
+                    <span class="text-[9px] bg-claude-terracottaLight text-claude-terracotta px-1 py-0.2 rounded border border-claude-terracottaBorder shrink-0 ml-1">主号</span>
+                  </div>
+                  <div class="flex items-center justify-between text-[10px] sm:text-[11px] text-claude-textSecondary">
+                    <span>2000+ 粉丝</span>
+                    <span class="font-bold text-claude-terracotta">日均 6000+ 播放</span>
+                  </div>
+                </div>
+                <div class="proof-thumb cursor-pointer p-2 sm:p-2.5 rounded-lg bg-white border border-claude-border hover:border-claude-terracotta transition-all" onclick="openLightbox('./assets/视频号_矩阵号2.png', '企业视频号后台 2：非线智能API行业应用')">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="font-bold text-[11px] text-claude-text truncate">非线智能API行业应用</span>
+                    <span class="text-[9px] bg-claude-tagBg text-claude-tagText px-1 py-0.2 rounded border border-claude-border shrink-0 ml-1">行业号</span>
+                  </div>
+                  <div class="flex items-center justify-between text-[10px] sm:text-[11px] text-claude-textSecondary">
+                    <span>3000+ 粉丝</span>
+                    <span class="font-bold text-claude-terracotta">日均 5000+ 播放</span>
+                  </div>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
