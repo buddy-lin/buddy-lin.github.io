@@ -316,14 +316,17 @@
       <!-- 快捷联系栏 (一行紧凑) -->
       <div class="flex flex-nowrap items-center justify-center sm:justify-start gap-2.5 sm:gap-3 mt-3 pt-3 border-t border-claude-borderLight overflow-x-auto pb-0.5">
         <div class="flex items-center gap-1 hover:text-claude-terracotta cursor-pointer transition-colors whitespace-nowrap shrink-0" onclick="copyContact('15521176794', '电话已复制: 15521176794')">
+          <i data-lucide="phone-call" class="w-3 h-3 text-claude-terracotta shrink-0"></i>
           <span class="font-mono text-[11px] text-claude-text">15521176794</span>
         </div>
         <span class="text-claude-border shrink-0">|</span>
         <div class="flex items-center gap-1 hover:text-claude-terracotta cursor-pointer transition-colors whitespace-nowrap shrink-0" onclick="copyContact('ljy45678', '微信号已复制: ljy45678')">
+          <i data-lucide="message-square" class="w-3 h-3 text-claude-terracotta shrink-0"></i>
           <span class="font-mono text-[11px] text-claude-text">ljy45678</span>
         </div>
         <span class="text-claude-border shrink-0">|</span>
         <div class="flex items-center gap-1 hover:text-claude-terracotta cursor-pointer transition-colors whitespace-nowrap shrink-0" onclick="copyContact('381271558@qq.com', '邮箱已复制: 381271558@qq.com')">
+          <i data-lucide="mail" class="w-3 h-3 text-claude-terracotta shrink-0"></i>
           <span class="font-mono text-[11px] text-claude-text">381271558@qq.com</span>
         </div>
       </div>
@@ -596,7 +599,7 @@
               <div class="text-[10px] sm:text-xs text-claude-textSecondary mt-0.5">单篇爆文阅读</div>
             </div>
             <div class="bg-white p-2.5 sm:p-3 rounded-lg border border-claude-border text-center">
-              <div class="text-lg sm:text-2xl font-bold font-serif text-claude-terracotta">GMV 10万+</div>
+              <div class="text-lg sm:text-2xl font-bold font-serif text-claude-terracotta">GMV10万+</div>
               <div class="text-[10px] sm:text-xs text-claude-textSecondary mt-0.5">单篇转化大客</div>
             </div>
             <div class="bg-white p-2.5 sm:p-3 rounded-lg border border-claude-border text-center">
@@ -613,10 +616,9 @@
               <div class="text-[10px] text-claude-textMuted mt-1">公众号「nonlinear」标杆之作 · 点击阅读</div>
             </a>
             <div class="proof-thumb cursor-pointer p-3 rounded-lg border border-claude-border bg-white hover:border-claude-terracotta transition-all" onclick="openLightboxStack('./assets/视频号_矩阵号1.png', './assets/视频号_矩阵号2.png', '视频号矩阵 · 双号后台', '主号：非线智能API企业应用', '行业号：矩阵后台数据')">
-              <div class="text-[10px] font-bold text-claude-terracotta mb-0.5">视频号矩阵 (点击看双号后台)</div>
+              <div class="text-[10px] font-bold text-claude-terracotta mb-0.5">视频号矩阵（查看后台）</div>
               <div class="flex items-center justify-between gap-2">
                 <span class="text-xs font-bold text-claude-text truncate">非线智能API双号矩阵</span>
-                <span class="text-[10px] text-claude-textSecondary shrink-0">日均播放 5万+</span>
               </div>
               <div class="text-[10px] text-claude-textMuted mt-1">主号 2000+ 粉 / 行业号 3000+ 粉</div>
             </div>
@@ -1042,10 +1044,16 @@
       </div>
 
       <!-- 视频内容容器 -->
-      <div id="lightbox-video-container" class="w-full hidden max-h-[75vh] sm:max-h-[82vh] rounded-xl bg-black/50 border border-white/10 shadow-2xl overflow-hidden p-1">
-        <video id="lightbox-video" controls class="w-full max-h-[70vh] sm:max-h-[78vh] object-contain bg-black rounded-lg">
+      <div id="lightbox-video-container" class="w-full hidden max-h-[75vh] sm:max-h-[82vh] rounded-xl bg-black/50 border border-white/10 shadow-2xl overflow-hidden p-1 relative">
+        <video id="lightbox-video" controls poster="./assets/video_poster.jpg" class="w-full max-h-[70vh] sm:max-h-[78vh] object-contain bg-black rounded-lg">
           您的浏览器不支持视频播放。
         </video>
+        <!-- 静态封面播放指引遮罩：视频未播放时显示，引导用户点击播放 -->
+        <button id="lightbox-video-play-overlay" onclick="playLightboxVideo()" class="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-colors z-10" aria-label="播放演示视频">
+          <span class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-claude-terracotta/90 hover:bg-claude-terracotta text-white shadow-2xl">
+            <i data-lucide="play" class="w-7 h-7 sm:w-8 sm:h-8"></i>
+          </span>
+        </button>
       </div>
 
       <!-- 组图切换栏 -->
@@ -1227,13 +1235,39 @@
       videoContainer.classList.remove('hidden');
       nav.classList.add('hidden');
 
+      // 显示静态封面 + 播放指引遮罩，避免浏览器拦截自动播放导致黑屏需二次点击
+      video.pause();
+      video.currentTime = 0;
       video.src = src;
+      const overlay = document.getElementById('lightbox-video-play-overlay');
+      overlay.classList.remove('hidden');
       titleEl.innerText = title || '实操演示视频';
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-      video.play().catch(e => console.log('Autoplay prevented'));
       document.body.style.overflow = 'hidden';
       lucide.createIcons();
+    }
+
+    function playLightboxVideo() {
+      const video = document.getElementById('lightbox-video');
+      const overlay = document.getElementById('lightbox-video-play-overlay');
+      if (video.paused) {
+        video.play().then(() => {
+          overlay.classList.add('hidden');
+        }).catch(e => console.log('Autoplay prevented'));
+      } else {
+        overlay.classList.add('hidden');
+      }
+    }
+
+    function lightboxVideoState() {
+      const video = document.getElementById('lightbox-video');
+      const overlay = document.getElementById('lightbox-video-play-overlay');
+      if (video.paused) {
+        overlay.classList.remove('hidden');
+      } else {
+        overlay.classList.add('hidden');
+      }
     }
 
     function openLightboxGroup(images, titles, index) {
@@ -1556,6 +1590,15 @@
     };
 
     // 键盘监听
+    // ---- 视频 lightbox 播放状态与封面遮罩同步 ----
+    (function bindLightboxVideoState() {
+      const video = document.getElementById('lightbox-video');
+      if (video) {
+        video.addEventListener('play', lightboxVideoState);
+        video.addEventListener('pause', lightboxVideoState);
+      }
+    })();
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeLightbox();
