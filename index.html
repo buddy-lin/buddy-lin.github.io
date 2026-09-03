@@ -1635,9 +1635,25 @@
 
       function onScroll() {
         const headerOffset = 82; // 需 > scroll-margin-top(74px)，否则锚点跳转停靠后 top=74 不被判定命中，会误命中上一板块
+        const progressThreshold = 0.7; // 当前板块内容滚过自身高度70%后，提前高亮下一个板块
+        // 找出当前正在浏览的板块：最后一个顶部越过头部线的板块
+        let curIdx = -1;
+        for (let i = 0; i < sections.length; i++) {
+          if (sections[i].getBoundingClientRect().top <= headerOffset) {
+            curIdx = i;
+          }
+        }
         let currentId = null;
-        for (const sec of sections) {
-          if (sec.getBoundingClientRect().top <= headerOffset) {
+        if (curIdx >= 0) {
+          const sec = sections[curIdx];
+          const top = sec.getBoundingClientRect().top;
+          const h = sec.offsetHeight || 1;
+          // 该板块内容已滚过头部的比例：顶部越过头线为0，底部越过头线为100%
+          const progress = (headerOffset - top) / h;
+          // 滚过70%：即使下一个板块尚未顶到头部，也提前显示下一个的选中效果（非线智能第一板块同样适用）
+          if (progress >= progressThreshold && curIdx < sections.length - 1) {
+            currentId = sections[curIdx + 1].id;
+          } else {
             currentId = sec.id;
           }
         }
