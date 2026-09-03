@@ -1656,6 +1656,9 @@
           } else {
             currentId = sec.id;
           }
+        } else {
+          // 尚未滚到第一个板块（导航吸顶/顶部区域）：默认高亮第一个板块，使导航吸顶即选中「非线智能(AI)」
+          currentId = sections[0].id;
         }
         // 若页面滚动到底部，强制高亮 DOM 顺序最后一个板块
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 4) {
